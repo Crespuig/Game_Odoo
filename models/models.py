@@ -1,18 +1,34 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api
 
 
-# class game(models.Model):
-#     _name = 'game.game'
-#     _description = 'game.game'
+class game(models.Model):
+    _name = 'game.game'
+    _description = 'Game'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    name = fields.Char()
+    value = fields.Integer()
+    value2 = fields.Float()
+    description = fields.Text()
+
+class player(models.Model):
+    _name = 'game.player'
+    _description = 'Jugador'
+
+    photo = fields.Image(max_width='200')
+    name = fields.Char()
+    level = fields.Integer()
+    points = fields.Integer()
+    description = fields.Text()
+    bases = fields.Integer()
+
+class base(models.Model):
+    _name = 'game.base'
+    _description = 'Base'
+
+    photo = fields.Image(max_width='200')
+    level = fields.Integer()
+    resources = fields.Integer()
+
+

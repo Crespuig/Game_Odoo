@@ -24,6 +24,19 @@
     </record>
 -->
 
+    <record model="ir.actions.act_window" id="game.action_window_player">
+      <field name="name">Game window</field>
+      <field name="res_model">game.player</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="game.action_window_base">
+      <field name="name">Game window</field>
+      <field name="res_model">game.base</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
     <!-- server action to the one above -->
 <!--
     <record model="ir.actions.server" id="game.action_server">
@@ -41,20 +54,21 @@
 -->
 
     <!-- Top menu item -->
-<!--
+
     <menuitem name="Game" id="game.menu_root"/>
--->
+
     <!-- menu categories -->
-<!--
+
     <menuitem name="Menu 1" id="game.menu_1" parent="game.menu_root"/>
     <menuitem name="Menu 2" id="game.menu_2" parent="game.menu_root"/>
--->
+
     <!-- actions -->
-<!--
+
     <menuitem name="List" id="game.menu_1_list" parent="game.menu_1"
-              action="game.action_window"/>
-    <menuitem name="Server to list" id="game" parent="game.menu_2"
-              action="game.action_server"/>
--->
+              action="game.action_window_player"/>
+    <menuitem name="List" id="game.menu_1_list" parent="game.menu_1"
+              action="game.action_window_base"/>
+
+
   </data>
 </odoo>

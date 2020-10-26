@@ -25,14 +25,26 @@
 -->
 
     <record model="ir.actions.act_window" id="game.action_window_player">
-      <field name="name">Game window</field>
+      <field name="name">Player</field>
       <field name="res_model">game.player</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="game.action_window_base">
-      <field name="name">Game window</field>
-      <field name="res_model">game.base</field>
+    <record model="ir.actions.act_window" id="game.action_window_caracter">
+      <field name="name">Caracter</field>
+      <field name="res_model">game.caracter</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="game.action_window_barco">
+      <field name="name">Barco</field>
+      <field name="res_model">game.barco</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="game.action_window_isla">
+      <field name="name">Island</field>
+      <field name="res_model">game.isla</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -55,19 +67,22 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="Game" id="game.menu_root"/>
+    <menuitem name="Barcos" id="game.menu_root"/>
 
     <!-- menu categories -->
 
     <menuitem name="Menu 1" id="game.menu_1" parent="game.menu_root"/>
-    <menuitem name="Menu 2" id="game.menu_2" parent="game.menu_root"/>
 
     <!-- actions -->
 
     <menuitem name="Player" id="game.menu_1_player" parent="game.menu_1"
               action="game.action_window_player"/>
-    <menuitem name="Base" id="game.menu_1_base" parent="game.menu_1"
-              action="game.action_window_base"/>
+    <menuitem name="Caracter" id="game.menu_1_caracter" parent="game.menu_1"
+              action="game.action_window_caracter"/>
+    <menuitem name="Barco" id="game.menu_1_barco" parent="game.menu_1"
+              action="game.action_window_barco"/>
+    <menuitem name="Island" id="game.menu_1_isla" parent="game.menu_1"
+              action="game.action_window_isla"/>
 
 
   </data>

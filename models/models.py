@@ -3,32 +3,59 @@
 from odoo import models, fields, api
 
 
-class game(models.Model):
-    _name = 'game.game'
-    _description = 'Game'
-
-    name = fields.Char()
-    value = fields.Integer()
-    value2 = fields.Float()
-    description = fields.Text()
-
 class player(models.Model):
     _name = 'game.player'
     _description = 'Jugador'
 
-    photo = fields.Image(max_width='200')
+    photo = fields.Image()
     name = fields.Char()
     level = fields.Integer()
     points = fields.Integer()
     description = fields.Text()
-    base = fields.Integer()
 
-class base(models.Model):
-    _name = 'game.base'
-    _description = 'Base'
+    caracters = fields.One2many('game.caracter', 'lider')
+    barcos = fields.One2many('game.barco', 'barco')
+    islas = fields.One2many('game.isla', 'isla')
 
-    photo = fields.Image(max_width='200')
+class caracter(models.Model):
+    _name = 'game.caracter'
+    _description = 'Caracter'
+
+    lider = fields.Many2one('game.player')
+
+
+
+
+class barco(models.Model):
+    _name = 'game.barco'
+    _description = 'Barco'
+
+    barco = fields.Many2one('game.player')
+
+
+
+class isla(models.Model):
+    _name = "game.isla"
+    _description = "Isla"
+
+    photo = fields.Image()
+    name = fields.Char()
     level = fields.Integer()
     resources = fields.Integer()
+    madera = fields.Integer()
+    bronce = fields.Integer()
+    hierro = fields.Integer()
+    plata = fields.Integer()
+    oro = fields.Integer()
+    adamantium = fields.Integer()
+
+    isla = fields.Many2one('game.player')
+
+    caracters = fields.One2many('game.caracter', 'lider')
+    barcos = fields.One2many('game.barco', 'barco')
+
+
+
+
 
 

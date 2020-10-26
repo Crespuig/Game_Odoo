@@ -21,7 +21,7 @@ class player(models.Model):
     level = fields.Integer()
     points = fields.Integer()
     description = fields.Text()
-    bases = fields.Integer()
+    base = fields.Integer()
 
 class base(models.Model):
     _name = 'game.base'

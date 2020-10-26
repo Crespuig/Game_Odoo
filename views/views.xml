@@ -64,9 +64,9 @@
 
     <!-- actions -->
 
-    <menuitem name="List" id="game.menu_1_list" parent="game.menu_1"
+    <menuitem name="Player" id="game.menu_1_player" parent="game.menu_1"
               action="game.action_window_player"/>
-    <menuitem name="List" id="game.menu_1_list" parent="game.menu_1"
+    <menuitem name="Base" id="game.menu_1_base" parent="game.menu_1"
               action="game.action_window_base"/>
 
 

@@ -13,8 +13,8 @@ class player(models.Model):
     points = fields.Integer()
 
     #caracters = fields.One2many('game.caracter', 'lider')
-    barcos = fields.One2many('game.barco', 'barco')
-    islas = fields.One2many('game.isla', 'isla')
+    barcos = fields.One2many('game.barco', 'player')
+    islas = fields.One2many('game.isla', 'player')
 
 #class caracter(models.Model):
     #_name = 'game.caracter'
@@ -29,7 +29,8 @@ class barco(models.Model):
     _name = 'game.barco'
     _description = 'Barco'
 
-    barco = fields.Many2one('game.player')
+    player = fields.Many2one('game.player')
+    isla = fields.Many2one('game.isla')
 
 
 
@@ -40,7 +41,6 @@ class isla(models.Model):
     photo = fields.Image()
     name = fields.Char()
     level = fields.Integer()
-    resources = fields.Integer()
     madera = fields.Integer()
     bronce = fields.Integer()
     hierro = fields.Integer()
@@ -48,10 +48,10 @@ class isla(models.Model):
     oro = fields.Integer()
     adamantium = fields.Integer()
 
-    isla = fields.Many2one('game.player')
+    player = fields.Many2one('game.player')
 
     #caracters = fields.One2many('game.caracter', 'lider')
-    barcos = fields.One2many('game.barco', 'barco')
+    barcos = fields.One2many('game.barco', 'isla')
 
 
 

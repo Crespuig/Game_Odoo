@@ -7,21 +7,20 @@ class player(models.Model):
     _name = 'game.player'
     _description = 'Jugador'
 
-    photo = fields.Image()
     name = fields.Char()
+    photo = fields.Image()
     level = fields.Integer()
     points = fields.Integer()
-    description = fields.Text()
 
-    caracters = fields.One2many('game.caracter', 'lider')
+    #caracters = fields.One2many('game.caracter', 'lider')
     barcos = fields.One2many('game.barco', 'barco')
     islas = fields.One2many('game.isla', 'isla')
 
-class caracter(models.Model):
-    _name = 'game.caracter'
-    _description = 'Caracter'
+#class caracter(models.Model):
+    #_name = 'game.caracter'
+    #_description = 'Caracter'
 
-    lider = fields.Many2one('game.player')
+    #lider = fields.Many2one('game.player')
 
 
 
@@ -51,7 +50,7 @@ class isla(models.Model):
 
     isla = fields.Many2one('game.player')
 
-    caracters = fields.One2many('game.caracter', 'lider')
+    #caracters = fields.One2many('game.caracter', 'lider')
     barcos = fields.One2many('game.barco', 'barco')
 
 

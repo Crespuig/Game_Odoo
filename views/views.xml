@@ -29,13 +29,13 @@
       <field name="res_model">game.player</field>
       <field name="view_mode">tree,form</field>
     </record>
-<!--
-    <record model="ir.actions.act_window" id="game.action_window_caracter">
-      <field name="name">Caracter</field>
-      <field name="res_model">game.caracter</field>
+
+    <record model="ir.actions.act_window" id="game.action_window_archipielago">
+      <field name="name">Archipielago</field>
+      <field name="res_model">game.archipielago</field>
       <field name="view_mode">tree,form</field>
     </record>
--->
+
     <record model="ir.actions.act_window" id="game.action_window_barco">
       <field name="name">Barco</field>
       <field name="res_model">game.barco</field>
@@ -77,11 +77,11 @@
 
     <menuitem name="Player" id="game.menu_1_player" parent="game.menu_1"
               action="game.action_window_player"/>
-    <!--<menuitem name="Caracter" id="game.menu_1_caracter" parent="game.menu_1"
-              action="game.action_window_caracter"/>-->
+    <menuitem name="Archipiélago" id="game.menu_1_archipielago" parent="game.menu_1"
+              action="game.action_window_archipielago"/>
     <menuitem name="Barco" id="game.menu_1_barco" parent="game.menu_1"
               action="game.action_window_barco"/>
-    <menuitem name="Island" id="game.menu_1_isla" parent="game.menu_1"
+    <menuitem name="Isla" id="game.menu_1_isla" parent="game.menu_1"
               action="game.action_window_isla"/>
 
 

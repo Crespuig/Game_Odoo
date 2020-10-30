@@ -8,7 +8,7 @@ class player(models.Model):
     _description = 'Jugador'
 
     name = fields.Char()
-    photo = fields.Image()
+    photo = fields.Image(max_width='200', max_heigth="200")
     level = fields.Integer()
     points = fields.Integer()
 
@@ -49,11 +49,19 @@ class isla(models.Model):
     adamantium = fields.Integer()
 
     player = fields.Many2one('game.player')
+    archipielago = fields.Many2one('game.archipielago')
 
     #caracters = fields.One2many('game.caracter', 'lider')
     barcos = fields.One2many('game.barco', 'isla')
 
+class archipielago(models.Model):
+    _name = "game.archipielago"
+    _description = "Archipiélago"
 
+    photo = fields.Image()
+    name = fields.Char()
+
+    islas = fields.One2many('game.isla', 'archipielago')
 
 
 

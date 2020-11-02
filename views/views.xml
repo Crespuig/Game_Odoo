@@ -7,27 +7,49 @@
             <field name="model">game.player</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="photo" widget="image"/>
                     <field name="name"/>
-                    <field name="photo"/>
                     <field name="level"/>
+                    <field name="barcos"/>
+                    <field name="islas"/>
+                    <field name="archipielagos"/>
                 </tree>
             </field>
         </record>
+
         <record model="ir.ui.view" id="game.player_form">
             <field name="name">Player</field>
             <field name="model">game.player</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <field name="photo" widget="image"/>
                         <group>
                             <field name="name"/>
-                            <field name="photo"/>
                             <field name="level"/>
+                            <field name="barcos"/>
+                            <field name="islas"/>
+                            <field name="archipielagos"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
+
+        <!--
+        <record model="ir.ui.view" id="game.player_kanban">
+            <field name="name">Player</field>
+            <field name="model">game.player</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+
+                    </templates>
+                </kanban>
+
+            </field>
+        </record>
+        -->
 
         <!--TREE FORM ARCHIPIELAGO -->
         <record model="ir.ui.view" id="game.archipielago_tree">
@@ -37,6 +59,8 @@
                 <tree>
                     <field name="photo"/>
                     <field name="name"/>
+                    <field name="islas"/>
+                    <field name="players"/>
                 </tree>
             </field>
         </record>
@@ -49,7 +73,38 @@
                         <group>
                             <field name="photo"/>
                             <field name="name"/>
+                            <field name="islas"/>
+                            <field name="players"/>
                         </group>
+                        <notebook>
+                            <page string="Players">
+                                <field name="players">
+                                    <kanban>
+                                        <!--list of field to be loaded -->
+                                        <field name="id"/> <!-- És important afegir el id per al record.id.value -->
+                                        <field name="photo"/>
+                                        <field name="name"/>
+                                        <field name="level"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_product_vignette">
+                                                    <div class="oe_product_desc">
+                                                        <h4>
+                                                            <a type="edit">
+                                                                <field name="name"/>
+                                                            </a>
+                                                        </h4>
+                                                        <p>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -62,6 +117,8 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
+                    <field name="player"/>
+                    <field name="isla"/>
                 </tree>
             </field>
         </record>
@@ -73,6 +130,8 @@
                     <sheet>
                         <group>
                             <field name="name"/>
+                            <field name="player"/>
+                            <field name="isla"/>
                         </group>
                     </sheet>
                 </form>
@@ -94,6 +153,7 @@
                     <field name="plata"/>
                     <field name="oro"/>
                     <field name="adamantium"/>
+                    <field name="player"/>
                 </tree>
             </field>
         </record>
@@ -113,6 +173,7 @@
                             <field name="plata"/>
                             <field name="oro"/>
                             <field name="adamantium"/>
+                            <field name="player"/>
                         </group>
                     </sheet>
                 </form>
@@ -132,25 +193,25 @@
         <record model="ir.actions.act_window" id="game.action_window_player">
             <field name="name">Player</field>
             <field name="res_model">game.player</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
         <record model="ir.actions.act_window" id="game.action_window_archipielago">
             <field name="name">Archipielago</field>
             <field name="res_model">game.archipielago</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
         <record model="ir.actions.act_window" id="game.action_window_barco">
             <field name="name">Barco</field>
             <field name="res_model">game.barco</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
         <record model="ir.actions.act_window" id="game.action_window_isla">
             <field name="name">Island</field>
             <field name="res_model">game.isla</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
 

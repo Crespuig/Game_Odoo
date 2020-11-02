@@ -15,6 +15,8 @@ class player(models.Model):
     barcos = fields.One2many('game.barco', 'player')
     islas = fields.One2many('game.isla', 'player')
 
+    archipielagos = fields.Many2many('game.archipielago', 'player')
+
 
 class barco(models.Model):
     _name = 'game.barco'
@@ -54,6 +56,7 @@ class archipielago(models.Model):
     name = fields.Char()
 
     islas = fields.One2many('game.isla', 'archipielago')
+    players = fields.Many2many('game.player', 'archipielago')
 
 
 

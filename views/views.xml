@@ -74,7 +74,6 @@
                             <field name="photo"/>
                             <field name="name"/>
                             <field name="islas"/>
-                            <field name="players"/>
                         </group>
                         <notebook>
                             <page string="Players">
@@ -94,9 +93,6 @@
                                                                 <field name="name"/>
                                                             </a>
                                                         </h4>
-                                                        <p>
-
-                                                        </p>
                                                     </div>
                                                 </div>
                                             </t>
@@ -104,6 +100,30 @@
                                     </kanban>
                                 </field>
                             </page>
+                            <!--
+                            <page string="Barcos">
+                                <field name="barcos">
+                                    <kanban>
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                        <field name="islas "/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_product_vignette">
+                                                    <div class="oe_product_desc">
+                                                        <h4>
+                                                            <a type="edit">
+                                                                <field name="name"/>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                            -->
                         </notebook>
                     </sheet>
                 </form>

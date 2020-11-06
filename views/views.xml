@@ -7,7 +7,6 @@
             <field name="model">game.player</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="photo" widget="image"/>
                     <field name="name"/>
                     <field name="level"/>
                     <field name="barcos"/>
@@ -36,6 +35,20 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="game.player_search">
+            <field name="name">Player</field>
+            <field name="model">game.player</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="level" string="Level" filter_domain="[('level','>','self')]"/>
+                    <filter name="maxLevel" string="Nivel máximo" domain="[('level','>','99')]"></filter>
+                    <filter name="group_by_archipielago" string="Agrupar por nivel"
+                            context="{'group_by': 'level'}"></filter>
+                </search>
+            </field>
+        </record>
+
         <!--
         <record model="ir.ui.view" id="game.player_kanban">
             <field name="name">Player</field>
@@ -57,7 +70,6 @@
             <field name="model">game.archipielago</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="photo"/>
                     <field name="name"/>
                     <field name="islas"/>
                     <field name="players"/>
@@ -70,8 +82,8 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <field name="photo" widget="image"/>
                         <group>
-                            <field name="photo"/>
                             <field name="name"/>
                             <field name="islas"/>
                         </group>
@@ -164,7 +176,6 @@
             <field name="model">game.isla</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="photo"/>
                     <field name="name"/>
                     <field name="level"/>
                     <field name="madera"/>
@@ -173,7 +184,6 @@
                     <field name="plata"/>
                     <field name="oro"/>
                     <field name="adamantium"/>
-                    <field name="player"/>
                 </tree>
             </field>
         </record>
@@ -183,8 +193,8 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <field name="photo" widget="image"/>
                         <group>
-                            <field name="photo"/>
                             <field name="name"/>
                             <field name="level"/>
                             <field name="madera"/>
@@ -197,6 +207,33 @@
                         </group>
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <!--TREE FORM VIAJE -->
+        <record model="ir.ui.view" id="game.viaje_tree">
+            <field name="name">Viaje</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.viaje_form">
+            <field name="name">Viaje</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <field name="name"/>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.viaje_calendar">
+            <field name="name">Viaje Calendar</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <calendar string="Viaje Calendar" date_start="fecha" date_delay="horas" color="player">
+                    <field name="name"/>
+                </calendar>
             </field>
         </record>
 
@@ -234,6 +271,12 @@
             <field name="view_mode">tree,form,kanban</field>
         </record>
 
+        <record model="ir.actions.act_window" id="game.action_window_viaje">
+            <field name="name">Viaje</field>
+            <field name="res_model">game.viaje</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+
 
         <!-- server action to the one above -->
         <!--
@@ -253,7 +296,7 @@
 
         <!-- Top menu item -->
 
-        <menuitem name="Barcos" id="game.menu_root"/>
+        <menuitem name="Game" id="game.menu_root"/>
 
         <!-- menu categories -->
 
@@ -269,7 +312,8 @@
                   action="game.action_window_barco"/>
         <menuitem name="Isla" id="game.menu_1_isla" parent="game.menu_1"
                   action="game.action_window_isla"/>
-
+        <menuitem name="Viaje" id="game.menu_1_viaje" parent="game.menu_1"
+                  action="game.action_window_viaje"/>
 
     </data>
 </odoo>

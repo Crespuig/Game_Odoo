@@ -3,5 +3,5 @@ access_game_player,game.player,model_game_player,base.group_user,1,1,1,1
 access_game_barco,game.barco,model_game_barco,base.group_user,1,1,1,1
 access_game_isla,game.isla,model_game_isla,base.group_user,1,1,1,1
 acces_game_archipielago,game.archipielago,model_game_archipielago,base.group_user,1,1,1,1
-
+acces_game_viaje,game.viaje,model_game_viaje,base.group_user,1,1,1,1
 

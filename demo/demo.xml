@@ -3,6 +3,7 @@
         <!-- PLAYERS -->
         <record id="game.player_01" model="game.player">
             <field name="name">Antonio</field>
+            <field name="level">30</field>
             <field name="photo">/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
 HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
 MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAFKAkQDASIA
@@ -557,6 +558,7 @@ rnBDiAcONQkC2xzxG5S9NeytwEQl2VbbuXCx2l5xCwDsrzFEi+Uuf//Z</field>
         </record>
         <record id="game.player_02" model="game.player">
             <field name="name">Lagertha</field>
+            <field name="level">58</field>
             <field name="photo">/9j/4AAQSkZJRgABAQAAAQABAAD//gA8Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcg
 SlBFRyB2NjIpLCBxdWFsaXR5ID0gMTAwCv/bAEMACgcHCAcGCggICAsKCgsOGBAODQ0OHRUWERgj
 HyUkIh8iISYrNy8mKTQpISIwQTE0OTs+Pj4lLkRJQzxINz0+O//bAEMBCgsLDg0OHBAQHDsoIig7
@@ -5108,6 +5110,14 @@ KXMcjIp+6pB60iLJaOAFLo3zL60UUADHc5I+TLbSvrQuG/h2srfeoopMA2hAy7uOWG7inhS8ZUke
 bt+XPRvrRRTARI1nVlAKP/ErdGoV5EURuo2KwA+lFFAA0qNv81QpX7zHpTpoW81ZEDYPDD+tFFJ6
 ANdRyN24t8yt6GjzRHGoYAH+9/e9aKKYxyrtcMNpByQ3ZhTSwWQxuAqP8w9zRRQIVcqxS4jDbeh9
 aFUnc2Ufb8rLRRSGf//Z</field>
+            <field name="madera">598</field>
+            <field name="oro">471</field>
+            <field name="bronce">359</field>
+            <field name="hierro">347</field>
+            <field name="plata">258</field>
+            <field name="oro">221</field>
+            <field name="adamantium">158</field>
+            <field name="level">24</field>
             <!-- Many2One -->
             <field name="player" ref="game.player_01"></field>
         </record>
@@ -23894,6 +23904,14 @@ dZFXMY44/voYBGGYhYkSihTKmt20fkbnHJvtls3NDT/88AMPh0sO+8PymVzWj/N+t2aIfUlfeAot
 +J8NfAK/D0vupXI+L712H99373qMz/+MJa36fq2nGEWXt64V/z+TNF8sWR554AAAACV0RVh0ZGF0
 ZTpjcmVhdGUAMjAxNi0xMS0xOFQwMToxNDowMyswMDowMGqjVv8AAAAldEVYdGRhdGU6bW9kaWZ5
 ADIwMTYtMTEtMThUMDE6MTQ6MDMrMDA6MDAb/u5DAAAAAElFTkSuQmCC</field>
+            <field name="madera">598</field>
+            <field name="oro">471</field>
+            <field name="bronce">359</field>
+            <field name="hierro">347</field>
+            <field name="plata">258</field>
+            <field name="oro">221</field>
+            <field name="adamantium">158</field>
+            <field name="level">24</field>
             <!-- Many2One -->
             <field name="player" ref="game.player_01"></field>
         </record>
@@ -26752,17 +26770,35 @@ Atw3aX64g3XehvGO7K19sKlVfqzniAKV+DENfCLQODam8nUNZljkt2ZgtRW7BLahyWOVXRG48pF+
 ivzG5ba6ZPJaRFznlUvyk5p+cTZw9Q/NTyh0shtN7pPhxKowSigRbPyCBql3Djz/AJhloV5P4nWL
 5T8wKll0bq7eetS7LSzDrjG5dHbylX4uJCK+mNq/NTK2Xu1KwGvSRacmS1YRSQ8YmKho8RBy/EyQ
 Du+PUxImnKGKraWnfWtzU00LwtSOqrxMeL9xaWHxOgfEVo+pkcW9/wDgubu7lRiyBPDAZRfif//Z</field>
+            <field name="madera">598</field>
+            <field name="oro">471</field>
+            <field name="bronce">359</field>
+            <field name="hierro">347</field>
+            <field name="plata">258</field>
+            <field name="oro">221</field>
+            <field name="adamantium">158</field>
+            <field name="level">24</field>
             <field name="player" ref="game.player_02"></field>
         </record>
 
         <!-- ARCHIPIELAGOS -->
-        <!--
         <record id="game.achipielago_01" model="game.archipielago">
             <field name="name">Mogambo</field>
             <field name="photo"></field>
-
-            <field name="tags_id" eval="[(6,0,[ref('game.player_01'),ref('game.player_02')] )]"></field>
+            <!-- Many2Many -->
+            <field name="players" eval="[(6,0,[ref('game.player_01'),ref('game.player_02')] )]"></field>
         </record>
-        -->
+
+        <!-- BARCOS -->
+        <record id="game.barco_01" model="game.barco">
+            <field name="name">Patera</field>
+            <field name="player" ref="game.player_02"></field>
+            <field name="isla" ref="game.isla_03"></field>
+        </record>
+        <record id="game.barco_02" model="game.barco">
+            <field name="name">Patera</field>
+            <field name="player" ref="game.player_01"></field>
+            <field name="isla" ref="game.isla_01"></field>
+        </record>
     </data>
 </odoo>

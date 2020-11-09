@@ -217,6 +217,10 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
+                    <field name="player"></field>
+                    <field name="origen_isla"></field>
+                    <field name="destino_isla"></field>
+                    <field name="launch_time"></field>
                 </tree>
             </field>
         </record>
@@ -225,6 +229,11 @@
             <field name="model">game.viaje</field>
             <field name="arch" type="xml">
                 <field name="name"/>
+                <group>
+                    <field name="player"></field>
+                    <field name="origen_isla"></field>
+                    <field name="destino_isla"></field>
+                </group>
             </field>
         </record>
         <record model="ir.ui.view" id="game.viaje_calendar">

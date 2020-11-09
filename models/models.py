@@ -63,12 +63,21 @@ class viaje(models.Model):
     _name = "game.viaje"
     _description = "Viaje"
 
-    name = fields.Char()
+    name = fields.Char(compute='_get_name')
     fecha = fields.Datetime()
     finish = fields.Date()
     horas = fields.Integer()
 
     player = fields.Many2one('game.player')
+
+    origen_isla = fields.Many2one('game.isla')
+    destino_isla = fields.Many2one('game.isla')
+    launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
+
+    @api.depends('origen_isla', 'destino_isla', 'player')
+    def _get_name(self):
+        for t in self:
+            t.name = str(t.player.name) + " " + str(t.origen_isla.name) + " -> " + str(t.destino_isla.name)
 
 
 

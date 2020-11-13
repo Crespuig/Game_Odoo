@@ -15,6 +15,7 @@ class player(models.Model):
     barcos = fields.One2many('game.barco', 'player')
     islas = fields.One2many('game.isla', 'player')
     viajes = fields.One2many('game.viaje', 'player')
+    levels = fields.One2many('game.levels', 'player')
 
     archipielagos = fields.Many2many('game.archipielago')
 
@@ -37,6 +38,9 @@ class isla(models.Model):
     photo = fields.Image(max_width=100, max_heigth=100)
     name = fields.Char()
     level = fields.Integer()
+
+    #Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
+    #depende del nivel de la isla tendra unso recursos o otros
     madera = fields.Integer()
     bronce = fields.Integer()
     hierro = fields.Integer()
@@ -79,8 +83,10 @@ class viaje(models.Model):
         for t in self:
             t.name = str(t.player.name) + " " + str(t.origen_isla.name) + " -> " + str(t.destino_isla.name)
 
-
-
-
+class levels(models.Model):
+    _name = 'game.levels'
+    player = fields.Many2one('game.player')
+    date = fields.Char(default=lambda self: fields.Datetime.now())
+    levels = fields.Integer()
 
 

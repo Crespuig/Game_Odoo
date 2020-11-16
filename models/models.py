@@ -1,6 +1,24 @@
 # -*- coding: utf-8 -*-
+import random
+import string
 
 from odoo import models, fields, api
+
+def name_generator(self):
+    letters = list(string.ascii_lowercase)
+    first = list(string.ascii_uppercase)
+    vocals = ['a','e','i','o','u','y','']
+    name = random.choice(first)
+    for i in range(0,random.randint(3,5)):
+        name = name+random.choice(letters)+random.choice(vocals)
+    return name
+
+#def image_generator(self):
+#    images = self.env['game.template'].mapped('photo')
+#    image = random.choice(images)
+#    for i in range(0, random.randrange):
+#        name = name + random.choice(image)
+#    return image
 
 
 class player(models.Model):
@@ -8,7 +26,7 @@ class player(models.Model):
     _description = 'Jugador'
 
     name = fields.Char()
-    photo = fields.Image(max_width=100, max_heigth=100)
+    photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
     points = fields.Integer()
 
@@ -35,30 +53,31 @@ class isla(models.Model):
     _name = "game.isla"
     _description = "Isla"
 
-    photo = fields.Image(max_width=100, max_heigth=100)
-    name = fields.Char()
-    level = fields.Integer()
+    photo = fields.Image()
+    name = fields.Char(default=name_generator)
+    level = fields.Integer(default=random.randint(1, 100))
 
     #Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
     #depende del nivel de la isla tendra unso recursos o otros
-    madera = fields.Integer()
-    bronce = fields.Integer()
-    hierro = fields.Integer()
-    plata = fields.Integer()
-    oro = fields.Integer()
-    adamantium = fields.Integer()
+    madera = fields.Integer(default=random.randint(500, 800))
+    bronce = fields.Integer(default=random.randint(400, 700))
+    hierro = fields.Integer(default=random.randint(300, 600))
+    plata = fields.Integer(default=random.randint(200, 500))
+    oro = fields.Integer(default=random.randint(100, 400))
+    adamantium = fields.Integer(default=random.randint(0, 300))
 
     player = fields.Many2one('game.player')
     archipielago = fields.Many2one('game.archipielago')
 
     barcos = fields.One2many('game.barco', 'isla')
 
+
 class archipielago(models.Model):
     _name = "game.archipielago"
     _description = "Archipiélago"
 
     photo = fields.Image(max_width=100, max_heigth=100)
-    name = fields.Char()
+    name = fields.Char(default=name_generator)
 
     islas = fields.One2many('game.isla', 'archipielago')
     players = fields.Many2many('game.player')
@@ -85,8 +104,16 @@ class viaje(models.Model):
 
 class levels(models.Model):
     _name = 'game.levels'
+
     player = fields.Many2one('game.player')
     date = fields.Char(default=lambda self: fields.Datetime.now())
     levels = fields.Integer()
 
 
+class template(models.Model):
+    _name = 'game.template'
+    _description = 'Templates of the game'
+
+    name = fields.Char()
+    type = fields.Selection([('1','Player'),('2','Planet')])
+    image = fields.Image()

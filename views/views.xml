@@ -16,13 +16,25 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="game.levels_changes_graph">
+            <field name="name">Levels graph</field>
+            <field name="model">game.levels</field>
+            <field name="arch" type="xml">
+                <graph string="Changes Levels" type="line">
+                    <field name="player" type="row"/>
+                    <field name="date" type="col"/>
+                    <field name="levels" type="measure"/>
+                </graph>
+
+            </field>
+        </record>
         <act_window
                 id="game.launch_levels_graph"
                 name="Launch levels graph"
                 res_model="game.levels"
                 view_mode="graph"
                 target="new"
-                domain="[('player','=',active_id)]"
+                domain="[('levels','=',active_id)]"
         />
 
         <record model="ir.ui.view" id="game.player_form">
@@ -39,28 +51,24 @@
                             <field name="islas"/>
                             <field name="archipielagos"/>
                         </group>
+                        <notebook>
+                            <page string="Levels">
+                                <field name="levels">
+                                    <tree>
+                                        <field name="player"/>
+                                        <field name="date"/>
+                                        <field name="levels"/>
+                                    </tree>
+                                </field>
+                                <button name="%(game.launch_levels_graph)d" type="action" string="Show Graph"
+                                        class="oe_highlight"></button>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
 
-            <!--
-            <notebook>
-                <page string="Levels">
-                    <separator string="Levels"></separator>
-                    <field name="levels"/>
-                    <separator string="Levels History"></separator>
-                    <field name="levels_history">
-                        <tree>
-                            <field name="player"/>
-                            <field name="date"/>
-                            <field name="levels"/>
-                        </tree>
-                    </field>
-                    <button name="%(game.launch_levels_graph)d" type="action" string="Show Graph"
-                            class="oe_highlight"></button>
-                </page>
-            </notebook>
-            -->
+
         </record>
 
         <record model="ir.ui.view" id="game.player_search">

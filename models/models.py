@@ -14,7 +14,7 @@ def name_generator(self):
     return name
 
 #def image_generator(self):
-#    images = self.env['game.template'].mapped('photo')
+#    images = self.env['game.template'].mapped('image')
 #    image = random.choice(images)
 #    for i in range(0, random.randrange):
 #        name = name + random.choice(image)

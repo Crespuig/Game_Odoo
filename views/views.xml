@@ -36,22 +36,47 @@
                 target="new"
                 domain="[('levels','=',active_id)]"
         />
+        <act_window
+                id="game.agregar_isla"
+                name="Agregar isla"
+                res_model="game.isla"
+                view_mode="graph"
+                target="new"
+                domain="[('isla','=',active_id)]"
+        />
 
         <record model="ir.ui.view" id="game.player_form">
             <field name="name">Player</field>
             <field name="model">game.player</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <field name="name" widget="statusbar"/>
+                    </header>
+                    <header>
+                        <field name="level" widget="statusbar"/>
+                    </header>
+                    <header>
+                        <field name="points" widget="statusbar"/>
+                    </header>
                     <sheet>
                         <field name="photo" widget="image"/>
                         <group>
                             <field name="name"/>
                             <field name="level"/>
-                            <field name="barcos"/>
-                            <field name="islas"/>
-                            <field name="archipielagos"/>
                         </group>
                         <notebook>
+                            <page string="Islas">
+                                <field name="islas"/>
+                                <button name="accionAgregarIsla" type="action" string="Agregar isla"
+                                        class="oe_highlight"></button>
+                            </page>
+                            <page string="Archipiélagos">
+                                <field name="archipielagos"/>
+                            </page>
+                            <page string="Barcos">
+                                <field name="barcos"/>
+                            </page>
                             <page string="Levels">
                                 <field name="levels">
                                     <tree>
@@ -211,7 +236,8 @@
             <field name="name">Isla</field>
             <field name="model">game.isla</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree decoration-success="adamantium>150" decoration-primary="adamantium&lt;150"
+                      decoration-info="adamantium&lt;0">
                     <field name="name"/>
                     <field name="level"/>
                     <field name="madera"/>

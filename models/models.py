@@ -13,19 +13,21 @@ def name_generator(self):
         name = name+random.choice(letters)+random.choice(vocals)
     return name
 
-#def image_generator(self):
-#    images = self.env['game.template'].mapped('image')
-#    image = random.choice(images)
-#    for i in range(0, random.randrange):
-#        name = name + random.choice(image)
-#    return image
+def image_generator(self):
+    images = self.env['game.template'].search([]).mapped('photo')
+    image = random.choice(images)
+
+    return image
 
 
 class player(models.Model):
     _name = 'game.player'
     _description = 'Jugador'
 
-    name = fields.Char()
+    def accionAgregarIsla(self):
+        raise agregar_isla();
+
+    name = fields.Char(default=name_generator)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
     points = fields.Integer()
@@ -53,7 +55,7 @@ class isla(models.Model):
     _name = "game.isla"
     _description = "Isla"
 
-    photo = fields.Image()
+    photo = fields.Image(default=image_generator, max_width=100, max_heigth=100)
     name = fields.Char(default=name_generator)
     level = fields.Integer(default=random.randint(1, 100))
 
@@ -115,5 +117,4 @@ class template(models.Model):
     _description = 'Templates of the game'
 
     name = fields.Char()
-    type = fields.Selection([('1','Player'),('2','Planet')])
-    image = fields.Image()
+    photo = fields.Image()

@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="game.template_isla1" model="game.isla">
+        <record id="game.template_isla01" model="game.template">
             <field name="name"></field>
             <field name="photo">/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcg
 SlBFRyB2NjIpLCBxdWFsaXR5ID0gNzUK/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0a
@@ -6397,7 +6397,7 @@ bt+XPRvrRRTARI1nVlAKP/ErdGoV5EURuo2KwA+lFFAA0qNv81QpX7zHpTpoW81ZEDYPDD+tFFJ6
 ANdRyN24t8yt6GjzRHGoYAH+9/e9aKKYxyrtcMNpByQ3ZhTSwWQxuAqP8w9zRRQIVcqxS4jDbeh9
 aFUnc2Ufb8rLRRSGf//Z</field>
         </record>
-        <record id="game.template_isla2" model="game.isla">
+        <record id="game.template_isla02" model="game.template">
             <field name="name"></field>
             <field name="photo">/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcg
 SlBFRyB2NjIpLCBxdWFsaXR5ID0gOTAK/9sAQwADAgIDAgIDAwMDBAMDBAUIBQUEBAUKBwcGCAwK
@@ -8537,7 +8537,7 @@ A9aADtQADrSAO1MAJ5oAM0AJmgAoAcOtIBO1MAzQMCeaBCZoAX1oAXvSAT1oAD1NAwHWmIO1AAO9
 AwpCDPFMAJoAPSgA7UAL60gEPQUwEzQAZoGFAhaAF9aBiA80CDtQDGE81RIZoAM0APHQ1LKQdxQA
 maAFFAxfSkAdjTEJSATNMAzVAf/Z</field>
         </record>
-        <record id="game.template_isla3" model="game.isla">
+        <record id="game.template_isla03" model="game.template">
             <field name="name"></field>
             <field name="photo">/9j/4AAQSkZJRgABAQIAHAAcAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcU
 FhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgo

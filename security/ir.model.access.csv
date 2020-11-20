@@ -5,5 +5,6 @@ access_game_isla,game.isla,model_game_isla,base.group_user,1,1,1,1
 acces_game_archipielago,game.archipielago,model_game_archipielago,base.group_user,1,1,1,1
 acces_game_viaje,game.viaje,model_game_viaje,base.group_user,1,1,1,1
 acces_game_levels,game.levels,model_game_levels,base.group_user,1,1,1,1
+acces_game_template,game.template,model_game_template,base.group_user,1,1,1,1
 
 

@@ -24,9 +24,6 @@ class player(models.Model):
     _name = 'game.player'
     _description = 'Jugador'
 
-    def accionAgregarIsla(self):
-        raise agregar_isla();
-
     name = fields.Char(default=name_generator)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
@@ -38,7 +35,6 @@ class player(models.Model):
     levels = fields.One2many('game.levels', 'player')
 
     archipielagos = fields.Many2many('game.archipielago')
-
 
 class barco(models.Model):
     _name = 'game.barco'

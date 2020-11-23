@@ -40,7 +40,7 @@
                 id="game.agregar_isla"
                 name="Agregar isla"
                 res_model="game.isla"
-                view_mode="graph"
+                view_mode="form"
                 target="new"
                 domain="[('isla','=',active_id)]"
         />
@@ -67,9 +67,9 @@
                         </group>
                         <notebook>
                             <page string="Islas">
-                                <field name="islas"/>
-                                <button name="accionAgregarIsla" type="action" string="Agregar isla"
-                                        class="oe_highlight"></button>
+                                <field name="islas" context="{'default_player':active_id}"/>
+                                <button name="%(game.agregar_isla)d" type="action" string="Agregar isla" icon="fa-bolt"
+                                        context="{'default_player':active_id}"></button>
                             </page>
                             <page string="Archipiélagos">
                                 <field name="archipielagos"/>
@@ -160,12 +160,21 @@
                                         <templates>
                                             <t t-name="kanban-box">
                                                 <div class="oe_product_vignette">
+                                                    <a type="open">
+                                                        <img class="o_image_64_contain"
+                                                             t-att-alt="record.name.value"
+
+                                                             t-att-src="kanban_image('game.player', 'photo', record.id.raw_value)"/>
+                                                    </a>
                                                     <div class="oe_product_desc">
-                                                        <h4>
-                                                            <a type="edit">
-                                                                <field name="name"/>
-                                                            </a>
-                                                        </h4>
+                                                        <div class="oe_product_desc">
+                                                            <h4>
+                                                                <a type="edit">
+                                                                    <field name="name"/>
+                                                                    <field name="level"/>
+                                                                </a>
+                                                            </h4>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </t>
@@ -173,16 +182,26 @@
                                     </kanban>
                                 </field>
                             </page>
-                            <!--
-                            <page string="Barcos">
-                                <field name="barcos">
+                            <page string="Islas">
+                                <field name="islas" context="{'default_player':active_id}"/>
+                                <button name="%(game.agregar_isla)d" type="action" string="Agregar isla"
+                                        icon="fa-bolt" context="{'default_player':active_id}"></button>
+                            </page>
+                            <page string="Islas">
+                                <field name="islas">
                                     <kanban>
                                         <field name="id"/>
                                         <field name="name"/>
-                                        <field name="islas "/>
                                         <templates>
                                             <t t-name="kanban-box">
-                                                <div class="oe_product_vignette">
+                                            <div class="oe_product_vignette">
+                                                <a type="open">
+                                                    <img class="o_image_64_contain"
+                                                         t-att-alt="record.name.value"
+
+                                                         t-att-src="kanban_image('game.isla', 'photo', record.id.raw_value)"/>
+                                                </a>
+                                                <div class="oe_product_desc">
                                                     <div class="oe_product_desc">
                                                         <h4>
                                                             <a type="edit">
@@ -191,12 +210,12 @@
                                                         </h4>
                                                     </div>
                                                 </div>
+                                            </div>
                                             </t>
                                         </templates>
                                     </kanban>
                                 </field>
                             </page>
-                            -->
                         </notebook>
                     </sheet>
                 </form>
@@ -265,7 +284,7 @@
                             <field name="plata"/>
                             <field name="oro"/>
                             <field name="adamantium"/>
-                            <field name="player"/>
+                            <field name="player" ReadOnly="TRUE"/>
                         </group>
                     </sheet>
                 </form>

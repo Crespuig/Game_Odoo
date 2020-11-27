@@ -65,9 +65,14 @@ class isla(models.Model):
     adamantium = fields.Integer(default=random.randint(0, 300))
 
     player = fields.Many2one('game.player')
-    archipielago = fields.Many2one('game.archipielago')
+    archipielago = fields.Many2one('game.archipielago', ondelete='cascade', required=True)
 
     barcos = fields.One2many('game.barco', 'isla')
+
+    @api.model
+    def update_resources(self):
+        planets = self.env['game.isla'].search([])
+        planets.calculate_production()
 
 
 class archipielago(models.Model):

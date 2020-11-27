@@ -194,23 +194,23 @@
                                         <field name="name"/>
                                         <templates>
                                             <t t-name="kanban-box">
-                                            <div class="oe_product_vignette">
-                                                <a type="open">
-                                                    <img class="o_image_64_contain"
-                                                         t-att-alt="record.name.value"
+                                                <div class="oe_product_vignette">
+                                                    <a type="open">
+                                                        <img class="o_image_64_contain"
+                                                             t-att-alt="record.name.value"
 
-                                                         t-att-src="kanban_image('game.isla', 'photo', record.id.raw_value)"/>
-                                                </a>
-                                                <div class="oe_product_desc">
+                                                             t-att-src="kanban_image('game.isla', 'photo', record.id.raw_value)"/>
+                                                    </a>
                                                     <div class="oe_product_desc">
-                                                        <h4>
-                                                            <a type="edit">
-                                                                <field name="name"/>
-                                                            </a>
-                                                        </h4>
+                                                        <div class="oe_product_desc">
+                                                            <h4>
+                                                                <a type="edit">
+                                                                    <field name="name"/>
+                                                                </a>
+                                                            </h4>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </t>
                                         </templates>
                                     </kanban>
@@ -265,6 +265,7 @@
                     <field name="plata"/>
                     <field name="oro"/>
                     <field name="adamantium"/>
+                    <field name="archipielago"/>
                 </tree>
             </field>
         </record>
@@ -276,15 +277,20 @@
                     <sheet>
                         <field name="photo" widget="image"/>
                         <group>
-                            <field name="name"/>
-                            <field name="level"/>
-                            <field name="madera"/>
-                            <field name="bronce"/>
-                            <field name="hierro"/>
-                            <field name="plata"/>
-                            <field name="oro"/>
-                            <field name="adamantium"/>
-                            <field name="player" ReadOnly="TRUE"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="level"/>
+                                <field name="madera"/>
+                                <field name="bronce"/>
+                                <field name="hierro"/>
+                                <field name="plata"/>
+                                <field name="oro"/>
+                                <field name="adamantium"/>
+                            </group>
+                            <group>
+                                <field name="archipielago"/>
+                                <field name="player" ReadOnly="TRUE"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>

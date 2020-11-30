@@ -333,15 +333,62 @@
             </field>
         </record>
 
+        <!-- CHALLENGE -->
+        <record model="ir.ui.view" id="game.challenge_tree">
+            <field name="name">Combate</field>
+            <field name="model">game.challenge</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nombre"></field>
+                    <field name="player_1"></field>
+                    <field name="isla_1"></field>
+                    <field name="player_2"></field>
+                    <field name="isla_2"></field>
+                    <field name="start_date"></field>
+                    <field name="end_date"></field>
+                </tree>
+            </field>
+        </record>
 
-        <!-- actions opening views on models -->
-        <!--
-            <record model="ir.actions.act_window" id="game.action_window">
-              <field name="name">Game window</field>
-              <field name="res_model">game.game</field>
-              <field name="view_mode">tree,form</field>
-            </record>
-        -->
+        <record model="ir.ui.view" id="game.challenge_form">
+            <field name="name">challenge Form</field>
+            <field name="model">game.challenge</field>
+            <field name="arch" type="xml">
+                <form string="challenge">
+                    <sheet>
+                        <group string="Combate">
+                            <group>
+                                <field name="nombre"/>
+                                <field name="descripcion"/>
+                            </group>
+                            <group>
+                                <field name="recurso"/>
+                                <field name="cantidad"/>
+                            </group>
+                        </group>
+                        <group string="Jugadores">
+                            <group string="Jugador 1" col="4">
+                                <field name="player_1"/>
+                                <field name="player_1_avatar" widget="image" nolabel="1"
+                                       attrs="{'invisible':[('player_1', '==', False)]}"/>
+                                <field name="isla_1"/>
+                                <field name="isla_1_image" widget="image" nolabel="1"
+                                       attrs="{'invisible':[('isla_1', '==', False)]}"/>
+                            </group>
+                            <group string="Jugador 2" col="4">
+                                <field name="player_2"/>
+                                <field name="player_2_avatar" widget="image" nolabel="1"
+                                       attrs="{'invisible':[('player_2', '==', False)]}"/>
+                                <field name="isla_2"/>
+                                <field name="isla_2_image" widget="image" nolabel="1"
+                                       attrs="{'invisible':[('isla_2', '==', False)]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
 
         <record model="ir.actions.act_window" id="game.action_window_player">
             <field name="name">Player</field>
@@ -371,6 +418,12 @@
             <field name="name">Viaje</field>
             <field name="res_model">game.viaje</field>
             <field name="view_mode">tree,form,calendar</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="game.challenge_action_window">
+            <field name="name">challenges</field>
+            <field name="res_model">game.challenge</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
 
@@ -410,6 +463,8 @@
                   action="game.action_window_isla"/>
         <menuitem name="Viaje" id="game.menu_1_viaje" parent="game.menu_1"
                   action="game.action_window_viaje"/>
+        <menuitem name="Combates" id="game.menu_challenges" parent="game.menu_1"
+                  action="game.challenge_action_window"/>
 
     </data>
 </odoo>

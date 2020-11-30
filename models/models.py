@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 import string
+from datetime import datetime, timedelta
 
 from odoo import models, fields, api
 
@@ -72,7 +73,7 @@ class isla(models.Model):
 
     def calculate_production(self):
         for p in self:
-            date = fields.Datetime.now()
+            #date = fields.Datetime.now()
 
             if p.player:
                 #planetary_changes = p.env['game.planetary_changes'].create(
@@ -153,3 +154,58 @@ class template(models.Model):
 
     name = fields.Char()
     photo = fields.Image()
+
+class challenge(models.Model):
+    _name = 'game.challenge'
+    _description = 'Player challenges'
+    # Main fields
+    nombre = fields.Char()
+    start_date = fields.Datetime(default=fields.Datetime.now)
+    end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now()+timedelta(hours=48)))
+    player_1 = fields.Many2one('game.player', required=True, ondelete='restrict')
+    player_2 = fields.Many2one('game.player', required=True, ondelete='restrict')
+    isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
+    isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
+    descripcion = fields.Text()
+    ### Challenge objective
+    recurso = fields.Selection([('madera','Madera'),('bronce','Bronce'),('hirro','Hierro'),('plata','Plata'),('oro','Oro'),('adamantium','Adamantium')])
+    cantidad = fields.Float()
+
+
+    player_1_avatar = fields.Image(related='player_1.photo')
+    player_2_avatar = fields.Image(related='player_2.photo')
+    isla_1_image = fields.Image(related='isla_1.photo')
+    isla_2_image = fields.Image(related='isla_2.photo')
+
+    @api.onchange('player_1')
+    def _onchange_player1(self):
+        if self.player_2:
+            if self.player_1.id == self.player_2.id:
+                self.player_1 = False
+                return {
+                    'warning': {
+                                   'title': "Players must be different",
+                                   'message': "Player 1 is the same as Player 2",
+                               }
+                }
+        return {
+                'domain': {'isla_1': [('player', '=', self.player_1.id)],
+                           'player_2': [('id', '!=', self.player_1.id)]},
+        }
+
+    @api.onchange('player_2')
+    def _onchange_player2(self):
+        if self.player_1:
+            if self.player_1.id == self.player_2.id:
+                self.player_2 = False
+                return {
+                    'warning': {
+                                   'title': "Players must be different",
+                                   'message': "Player 1 is the same as Player 2",
+                               }
+                }
+        return {
+                'domain': {'isla_2': [('player', '=', self.player_2.id)],
+                           'player_1': [('id', '!=', self.player_2.id)]},
+        }
+

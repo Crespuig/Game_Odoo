@@ -69,10 +69,44 @@ class isla(models.Model):
 
     barcos = fields.One2many('game.barco', 'isla')
 
+
+    def calculate_production(self):
+        for p in self:
+            date = fields.Datetime.now()
+
+            if p.player:
+                #planetary_changes = p.env['game.planetary_changes'].create(
+                #   {'isla': p.id, 'time': date, 'name': p.name + " " + str(date)})
+                new_madera = p.madera * 0.001
+                new_bronce = p.bronce * 0.001
+                new_hierro = p.hierro * 0.001
+                new_plata = p.plata * 0.001
+                new_oro = p.oro * 0.001
+                new_adamantium = p.adamantium * 0.001
+
+                final_madera = p.madera + new_madera
+                final_bronce = p.bronce + new_bronce
+                final_hierro = p.hierro + new_hierro
+                final_plata = p.plata + new_plata
+                final_oro = p.oro + new_oro
+                final_adamantium = p.adamantium + new_adamantium
+
+
+                p.write({
+                    'madera': final_madera,
+                    'bronce': final_bronce,
+                    'hierro': final_hierro,
+                    'plata': final_plata,
+                    'oro': final_oro,
+                    'adamantium': final_adamantium
+                })
+
+
     @api.model
     def update_resources(self):
-        planets = self.env['game.isla'].search([])
-        planets.calculate_production()
+        islas = self.env['game.isla'].search([])
+        islas.calculate_production()
+        print("Recurso actualizado")
 
 
 class archipielago(models.Model):

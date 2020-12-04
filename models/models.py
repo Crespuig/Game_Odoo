@@ -159,17 +159,19 @@ class challenge(models.Model):
     _name = 'game.challenge'
     _description = 'Player challenges'
     # Main fields
-    nombre = fields.Char()
+    nombre = fields.Char(default=name_generator)
     start_date = fields.Datetime(default=fields.Datetime.now)
     end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now()+timedelta(hours=48)))
+    finished = fields.Boolean(default=False)
     player_1 = fields.Many2one('game.player', required=True, ondelete='restrict')
     player_2 = fields.Many2one('game.player', required=True, ondelete='restrict')
     isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
-    descripcion = fields.Text()
     ### Challenge objective
     recurso = fields.Selection([('madera','Madera'),('bronce','Bronce'),('hirro','Hierro'),('plata','Plata'),('oro','Oro'),('adamantium','Adamantium')])
+    target_goal = fields.Float()
     cantidad = fields.Float()
+    winner = fields.Many2one('game.player', ondelete='restrict', readonly=True)
 
 
     player_1_avatar = fields.Image(related='player_1.photo')
@@ -209,3 +211,21 @@ class challenge(models.Model):
                            'player_1': [('id', '!=', self.player_2.id)]},
         }
 
+    @api.model
+    def calcularCombates(self):
+        combates = self.search([('finished','=',False)]).filtered(lambda c: c.end_date < fields.Datetime.now())
+        for c in combates:
+            isla1 = c.isla_1
+            isla2 = c.isla_2
+            goal = c.target_goal
+            parameter = c.recurso
+            print(c, isla1, isla2)
+            isla1_diference = abs(isla1[parameter]-goal)
+            isla2_diference = abs(isla2[parameter]-goal)
+            print(c,isla1_diference,isla2_diference)
+            if isla1_diference > isla2_diference:
+                winner = isla1.player.id
+            else:
+                winner = isla2.player.id
+            c.write({'finished':True,'winner':winner})
+            print("Combate finalizado")

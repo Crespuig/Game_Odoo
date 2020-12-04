@@ -289,11 +289,34 @@
                             </group>
                             <group>
                                 <field name="archipielago"/>
-                                <field name="player" ReadOnly="TRUE"/>
+                                <field name="player"/>
                             </group>
                         </group>
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="game.isla_search">
+            <field name="name">Isla</field>
+            <field name="model">game.isla</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="level" string="Level" filter_domain="[('level','>','self')]"/>
+                    <field name="madera" string="madera" filter_domain="[('madera','>','self')]"/>
+                    <field name="bronce" string="bronce" filter_domain="[('bronce','>','self')]"/>
+                    <field name="hierro" string="hierro" filter_domain="[('hierro','>','self')]"/>
+                    <field name="plata" string="plata" filter_domain="[('plata','>','self')]"/>
+                    <field name="oro" string="oro" filter_domain="[('oro','>','self')]"/>
+                    <field name="adamantium" string="adamantium" filter_domain="[('adamantium','>','self')]"/>
+                    <filter name="maxLevel" string="Nivel máximo" domain="[('level','>','99')]"></filter>
+                    <filter name="group_by_isla" string="Agrupar por nivel"
+                            context="{'group_by': 'level'}"></filter>
+                    <filter name="madera" string="Madera = 500 o más" domain="[('madera','>','500')]"></filter>
+                    <filter name="group_by_isla" string="Agrupar por madera"
+                            context="{'group_by': 'madera'}"></filter>
+                </search>
             </field>
         </record>
 
@@ -346,6 +369,7 @@
                     <field name="isla_2"></field>
                     <field name="start_date"></field>
                     <field name="end_date"></field>
+                    <field name="winner"></field>
                 </tree>
             </field>
         </record>
@@ -359,7 +383,6 @@
                         <group string="Combate">
                             <group>
                                 <field name="nombre"/>
-                                <field name="descripcion"/>
                             </group>
                             <group>
                                 <field name="recurso"/>
@@ -382,6 +405,9 @@
                                 <field name="isla_2"/>
                                 <field name="isla_2_image" widget="image" nolabel="1"
                                        attrs="{'invisible':[('isla_2', '==', False)]}"/>
+                            </group>
+                            <group string="Ganador" col="4">
+                                <field name="winner"/>
                             </group>
                         </group>
                     </sheet>

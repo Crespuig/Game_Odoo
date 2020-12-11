@@ -1911,12 +1911,13 @@ KYJzDDQlJ//Z</field>
         </record>
 
         <!-- ARCHIPIELAGOS -->
-        <record id="game.achipielago_01" model="game.archipielago">
+        <record id="game.archipielago_01" model="game.archipielago">
             <field name="name">Mogambo</field>
             <field name="photo"></field>
             <!-- Many2Many -->
             <field name="players" eval="[(6,0,[ref('game.player_01'),ref('game.player_02')] )]"></field>
         </record>
+
 
         <!-- ISLAS -->
         <record id="game.isla_01" model="game.isla">
@@ -5127,6 +5128,7 @@ aFUnc2Ufb8rLRRSGf//Z</field>
             <field name="adamantium">158</field>
             <field name="level">24</field>
             <!-- Many2One -->
+            <field name="archipielago" ref="game.archipielago_01"></field>
             <field name="player" ref="game.player_01"></field>
         </record>
         <record id="game.isla_02" model="game.isla">
@@ -23921,6 +23923,7 @@ ADIwMTYtMTEtMThUMDE6MTQ6MDMrMDA6MDAb/u5DAAAAAElFTkSuQmCC</field>
             <field name="adamantium">158</field>
             <field name="level">24</field>
             <!-- Many2One -->
+            <field name="archipielago" ref="game.archipielago_01"></field>
             <field name="player" ref="game.player_01"></field>
         </record>
         <record id="game.isla_03" model="game.isla">
@@ -26786,6 +26789,7 @@ Du+PUxImnKGKraWnfWtzU00LwtSOqrxMeL9xaWHxOgfEVo+pkcW9/wDgubu7lRiyBPDAZRfif//Z</fi
             <field name="oro">221</field>
             <field name="adamantium">158</field>
             <field name="level">24</field>
+            <field name="archipielago" ref="game.archipielago_01"></field>
             <field name="player" ref="game.player_02"></field>
         </record>
 

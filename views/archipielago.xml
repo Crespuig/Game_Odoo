@@ -97,34 +97,6 @@
             </field>
         </record>
 
-        <!--TREE FORM BARCO -->
-        <record model="ir.ui.view" id="game.barco_tree">
-            <field name="name">Barco</field>
-            <field name="model">game.barco</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name"/>
-                    <field name="player"/>
-                    <field name="isla"/>
-                </tree>
-            </field>
-        </record>
-        <record model="ir.ui.view" id="game.barco_form">
-            <field name="name">Barco</field>
-            <field name="model">game.barco</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="name"/>
-                            <field name="player"/>
-                            <field name="isla"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
 
     </data>
 </odoo>

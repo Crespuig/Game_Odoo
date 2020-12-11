@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <!-- Top menu item -->
+
+        <menuitem name="Game" id="game.menu_root"/>
+
+        <!-- menu categories -->
+
+        <menuitem name="Menu 1" id="game.menu_1" parent="game.menu_root"/>
+
+        <!-- actions -->
+
+        <menuitem name="Player" id="game.menu_1_player" parent="game.menu_1"
+                  action="game.action_window_player"/>
+        <menuitem name="Archipiélago" id="game.menu_1_archipielago" parent="game.menu_1"
+                  action="game.action_window_archipielago"/>
+        <menuitem name="Barco" id="game.menu_1_barco" parent="game.menu_1"
+                  action="game.action_window_barco"/>
+        <menuitem name="Isla" id="game.menu_1_isla" parent="game.menu_1"
+                  action="game.action_window_isla"/>
+        <menuitem name="Viaje" id="game.menu_1_viaje" parent="game.menu_1"
+                  action="game.action_window_viaje"/>
+        <menuitem name="Combates" id="game.menu_challenges" parent="game.menu_1"
+                  action="game.challenge_action_window"/>
+    </data>
+</odoo>

@@ -1910,6 +1910,14 @@ YGMCBQhhFMssPEsYGSRIIhkwSIBEkTgJIEE0Q5hASFEMCBxIENRiQBCAgY1McrERSiGDKC0r8xqv
 KYJzDDQlJ//Z</field>
         </record>
 
+        <!-- ARCHIPIELAGOS -->
+        <record id="game.achipielago_01" model="game.archipielago">
+            <field name="name">Mogambo</field>
+            <field name="photo"></field>
+            <!-- Many2Many -->
+            <field name="players" eval="[(6,0,[ref('game.player_01'),ref('game.player_02')] )]"></field>
+        </record>
+
         <!-- ISLAS -->
         <record id="game.isla_01" model="game.isla">
             <field name="name">Skypea</field>
@@ -26781,13 +26789,7 @@ Du+PUxImnKGKraWnfWtzU00LwtSOqrxMeL9xaWHxOgfEVo+pkcW9/wDgubu7lRiyBPDAZRfif//Z</fi
             <field name="player" ref="game.player_02"></field>
         </record>
 
-        <!-- ARCHIPIELAGOS -->
-        <record id="game.achipielago_01" model="game.archipielago">
-            <field name="name">Mogambo</field>
-            <field name="photo"></field>
-            <!-- Many2Many -->
-            <field name="players" eval="[(6,0,[ref('game.player_01'),ref('game.player_02')] )]"></field>
-        </record>
+
 
         <!-- BARCOS -->
         <record id="game.barco_01" model="game.barco">

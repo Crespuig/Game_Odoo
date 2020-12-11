@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="game.action_window_player">
+            <field name="name">Player</field>
+            <field name="res_model">game.player</field>
+            <field name="view_mode">tree,form,kanban,graph</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="game.action_window_archipielago">
+            <field name="name">Archipielago</field>
+            <field name="res_model">game.archipielago</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="game.action_window_barco">
+            <field name="name">Barco</field>
+            <field name="res_model">game.barco</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="game.action_window_isla">
+            <field name="name">Island</field>
+            <field name="res_model">game.isla</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="game.action_window_viaje">
+            <field name="name">Viaje</field>
+            <field name="res_model">game.viaje</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="game.challenge_action_window">
+            <field name="name">challenges</field>
+            <field name="res_model">game.challenge</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+    </data>
+</odoo>
+

@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+<!--TREE FORM ISLA -->
+        <record model="ir.ui.view" id="game.isla_tree">
+            <field name="name">Isla</field>
+            <field name="model">game.isla</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="adamantium>150" decoration-primary="adamantium&lt;150"
+                      decoration-info="adamantium&lt;0">
+                    <field name="name"/>
+                    <field name="level"/>
+                    <field name="madera"/>
+                    <field name="bronce"/>
+                    <field name="hierro"/>
+                    <field name="plata"/>
+                    <field name="oro"/>
+                    <field name="adamantium"/>
+                    <field name="archipielago"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.isla_form">
+            <field name="name">Isla</field>
+            <field name="model">game.isla</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="photo" widget="image"/>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="level"/>
+                                <field name="madera"/>
+                                <field name="bronce"/>
+                                <field name="hierro"/>
+                                <field name="plata"/>
+                                <field name="oro"/>
+                                <field name="adamantium"/>
+                            </group>
+                            <group>
+                                <field name="archipielago"/>
+                                <field name="player"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="game.isla_search">
+            <field name="name">Isla</field>
+            <field name="model">game.isla</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="level" string="Level" filter_domain="[('level','>',self)]"/>
+                    <field name="madera" string="madera" filter_domain="[('madera','>',self)]"/>
+                    <field name="bronce" string="bronce" filter_domain="[('bronce','>',self)]"/>
+                    <field name="hierro" string="hierro" filter_domain="[('hierro','>',self)]"/>
+                    <field name="plata" string="plata" filter_domain="[('plata','>',self)]"/>
+                    <field name="oro" string="oro" filter_domain="[('oro','>',self)]"/>
+                    <field name="adamantium" string="adamantium" filter_domain="[('adamantium','>',self)]"/>
+                    <filter name="maxLevel" string="Nivel máximo" domain="[('level','>','99')]"></filter>
+                    <filter name="group_by_isla" string="Agrupar por nivel"
+                            context="{'group_by': 'level'}"></filter>
+                    <filter name="de0A25" string="Nivel 0 a 25"
+                            domain="[('level','>=','0'),('level','&lt;=','25')]"></filter>
+                    <filter name="de25A50" string="Nivel 26 a 50"
+                            domain="[('level','>=','26'),('level','&lt;=','50')]"></filter>
+                    <filter name="de25A50" string="Nivel 51 a 75"
+                            domain="[('level','>=','51'),('level','&lt;=','75')]"></filter>
+                    <filter name="de25A50" string="Nivel 76 a 100"
+                            domain="[('level','>=','76'),('level','&lt;=','100')]"></filter>
+                    <filter name="madera" string="Madera = 500 o más" domain="[('madera','>','500')]"></filter>
+                    <filter name="bronce" string="Bronce = 500 o más" domain="[('bronce','>','500')]"></filter>
+                    <filter name="hierro" string="Hierro = 500 o más" domain="[('hierro','>','500')]"></filter>
+                    <filter name="plata" string="Plata = 500 o más" domain="[('plata','>','500')]"></filter>
+                    <filter name="oro" string="Oro = 500 o más" domain="[('oro','>','500')]"></filter>
+                    <filter name="adamantium" string="Adamantium = 500 o más"
+                            domain="[('adamantium','>','500')]"></filter>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

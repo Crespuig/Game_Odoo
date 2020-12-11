@@ -76,8 +76,7 @@ class isla(models.Model):
             #date = fields.Datetime.now()
 
             if p.player:
-                #planetary_changes = p.env['game.planetary_changes'].create(
-                #   {'isla': p.id, 'time': date, 'name': p.name + " " + str(date)})
+
                 new_madera = p.madera * 0.001
                 new_bronce = p.bronce * 0.001
                 new_hierro = p.hierro * 0.001

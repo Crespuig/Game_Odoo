@@ -1,0 +1,130 @@
+<odoo>
+    <data>
+<!--TREE FORM ARCHIPIELAGO -->
+        <record model="ir.ui.view" id="game.archipielago_tree">
+            <field name="name">Archipielago</field>
+            <field name="model">game.archipielago</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="islas"/>
+                    <field name="players"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.archipielago_form">
+            <field name="name">Archipielago</field>
+            <field name="model">game.archipielago</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="photo" widget="image"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="islas"/>
+                        </group>
+                        <notebook>
+                            <page string="Players">
+                                <field name="players">
+                                    <kanban>
+                                        <!--list of field to be loaded -->
+                                        <field name="id"/> <!-- És important afegir el id per al record.id.value -->
+                                        <field name="photo"/>
+                                        <field name="name"/>
+                                        <field name="level"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_product_vignette">
+                                                    <a type="open">
+                                                        <img class="o_image_64_contain"
+                                                             t-att-alt="record.name.value"
+
+                                                             t-att-src="kanban_image('game.player', 'photo', record.id.raw_value)"/>
+                                                    </a>
+                                                    <div class="oe_product_desc">
+                                                        <div class="oe_product_desc">
+                                                            <h4>
+                                                                <a type="edit">
+                                                                    <field name="name"/>
+                                                                    <field name="level"/>
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                            <page string="Islas">
+                                <field name="islas" context="{'default_player':active_id}"/>
+                                <button name="%(game.agregar_isla)d" type="action" string="Agregar isla"
+                                        icon="fa-bolt" context="{'default_player':active_id}"></button>
+                            </page>
+                            <page string="Islas">
+                                <field name="islas">
+                                    <kanban>
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_product_vignette">
+                                                    <a type="open">
+                                                        <img class="o_image_64_contain"
+                                                             t-att-alt="record.name.value"
+
+                                                             t-att-src="kanban_image('game.isla', 'photo', record.id.raw_value)"/>
+                                                    </a>
+                                                    <div class="oe_product_desc">
+                                                        <div class="oe_product_desc">
+                                                            <h4>
+                                                                <a type="edit">
+                                                                    <field name="name"/>
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--TREE FORM BARCO -->
+        <record model="ir.ui.view" id="game.barco_tree">
+            <field name="name">Barco</field>
+            <field name="model">game.barco</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="player"/>
+                    <field name="isla"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.barco_form">
+            <field name="name">Barco</field>
+            <field name="model">game.barco</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="player"/>
+                            <field name="isla"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

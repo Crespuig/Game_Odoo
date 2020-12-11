@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <!--TREE FORM VIAJE -->
+        <record model="ir.ui.view" id="game.viaje_tree">
+            <field name="name">Viaje</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="player"></field>
+                    <field name="origen_isla"></field>
+                    <field name="destino_isla"></field>
+                    <field name="launch_time"></field>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.viaje_form">
+            <field name="name">Viaje</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                    <group>
+                        <field name="player"></field>
+                        <field name="origen_isla"></field>
+                        <field name="destino_isla"></field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="game.viaje_calendar">
+            <field name="name">Viaje Calendar</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <calendar string="Viaje Calendar" date_start="fecha" date_delay="horas" color="player">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -20,12 +20,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','mail'],
+    'depends': ['base', 'mail'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/player.xml',
+        'views/archipielago.xml',
+        'views/isla.xml',
+        'views/barco.xml',
+        'views/viaje.xml',
+        'views/challenge.xml',
+        'views/actions.xml',
+        'views/menus.xml',
         'views/templates.xml',
         'demo/demo.xml',
         'views/cron.xml'

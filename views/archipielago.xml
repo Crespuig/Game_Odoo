@@ -6,6 +6,7 @@
             <field name="model">game.archipielago</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="photo_small" widget="image"/>
                     <field name="name"/>
                     <field name="islas"/>
                     <field name="players"/>

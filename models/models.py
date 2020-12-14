@@ -37,6 +37,10 @@ class player(models.Model):
 
     archipielagos = fields.Many2many('game.archipielago')
 
+    photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
+    photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
+
+
 class barco(models.Model):
     _name = 'game.barco'
     _description = 'Barco'
@@ -70,6 +74,9 @@ class isla(models.Model):
 
     barcos = fields.One2many('game.barco', 'isla')
 
+    photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
+    photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
+
 
     def calculate_production(self):
         for p in self:
@@ -77,12 +84,12 @@ class isla(models.Model):
 
             if p.player:
 
-                new_madera = p.madera * 0.001
-                new_bronce = p.bronce * 0.001
-                new_hierro = p.hierro * 0.001
-                new_plata = p.plata * 0.001
-                new_oro = p.oro * 0.001
-                new_adamantium = p.adamantium * 0.001
+                new_madera = p.madera * 0.01
+                new_bronce = p.bronce * 0.01
+                new_hierro = p.hierro * 0.01
+                new_plata = p.plata * 0.01
+                new_oro = p.oro * 0.01
+                new_adamantium = p.adamantium * 0.01
 
                 final_madera = p.madera + new_madera
                 final_bronce = p.bronce + new_bronce
@@ -118,6 +125,9 @@ class archipielago(models.Model):
 
     islas = fields.One2many('game.isla', 'archipielago')
     players = fields.Many2many('game.player')
+
+    photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
+    photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
 class viaje(models.Model):
     _name = "game.viaje"

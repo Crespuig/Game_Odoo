@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <tree decoration-success="adamantium>150" decoration-primary="adamantium&lt;150"
                       decoration-info="adamantium&lt;0">
+                    <field name="photo_small" widget="image"/>
                     <field name="name"/>
                     <field name="level"/>
                     <field name="madera"/>

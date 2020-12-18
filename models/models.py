@@ -40,6 +40,8 @@ class player(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
+    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+
 
 class barco(models.Model):
     _name = 'game.barco'
@@ -50,6 +52,7 @@ class barco(models.Model):
     player = fields.Many2one('game.player')
     isla = fields.Many2one('game.isla')
 
+    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 
 class isla(models.Model):
@@ -75,7 +78,9 @@ class isla(models.Model):
     barcos = fields.One2many('game.barco', 'isla')
 
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
-    photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
+    photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
+
+    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 
     def calculate_production(self):
@@ -127,7 +132,9 @@ class archipielago(models.Model):
     players = fields.Many2many('game.player')
 
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
-    photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
+    photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
+
+    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 class viaje(models.Model):
     _name = "game.viaje"
@@ -143,6 +150,8 @@ class viaje(models.Model):
     origen_isla = fields.Many2one('game.isla')
     destino_isla = fields.Many2one('game.isla')
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
+
+    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     @api.depends('origen_isla', 'destino_isla', 'player')
     def _get_name(self):
@@ -238,3 +247,7 @@ class challenge(models.Model):
                 winner = isla2.player.id
             c.write({'finished':True,'winner':winner})
             print("Combate finalizado")
+
+
+#si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas
+#de un archipielago si otro intenta entrar se crea una guerra con toda la flota, el que gane se queda con todas las islas

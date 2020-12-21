@@ -3,7 +3,7 @@
         <!--TREE FORM PLAYER -->
         <record model="ir.ui.view" id="game.player_tree">
             <field name="name">Player</field>
-            <field name="model">game.player</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="photo_small" widget="image"/>
@@ -47,7 +47,7 @@
 
         <record model="ir.ui.view" id="game.player_form">
             <field name="name">Player</field>
-            <field name="model">game.player</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -98,7 +98,7 @@
 
         <record model="ir.ui.view" id="game.player_search">
             <field name="name">Player</field>
-            <field name="model">game.player</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>

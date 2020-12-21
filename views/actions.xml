@@ -2,7 +2,7 @@
     <data>
         <record model="ir.actions.act_window" id="game.action_window_player">
             <field name="name">Player</field>
-            <field name="res_model">game.player</field>
+            <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form,kanban,graph</field>
         </record>
 

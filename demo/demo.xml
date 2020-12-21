@@ -43464,6 +43464,7 @@ Du+PUxImnKGKraWnfWtzU00LwtSOqrxMeL9xaWHxOgfEVo+pkcW9/wDgubu7lRiyBPDAZRfif//Z</fi
 
 
         <!-- BARCOS -->
+        <!--
         <record id="game.barco_01" model="game.barco">
             <field name="name">Patera</field>
             <field name="player" ref="game.player_02"></field>
@@ -43474,5 +43475,6 @@ Du+PUxImnKGKraWnfWtzU00LwtSOqrxMeL9xaWHxOgfEVo+pkcW9/wDgubu7lRiyBPDAZRfif//Z</fi
             <field name="player" ref="game.player_01"></field>
             <field name="isla" ref="game.isla_01"></field>
         </record>
+        -->
     </data>
 </odoo>

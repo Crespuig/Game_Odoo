@@ -22,10 +22,11 @@ def image_generator(self):
 
 
 class player(models.Model):
-    _name = 'game.player'
+    _inherit = "res.partner"
+    _name = 'res.partner'
     _description = 'Jugador'
 
-    name = fields.Char(default=name_generator)
+    #name = fields.Char(default=name_generator)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
     points = fields.Integer()
@@ -40,7 +41,7 @@ class player(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
-    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 
 class barco(models.Model):
@@ -49,7 +50,7 @@ class barco(models.Model):
 
     name = fields.Char()
 
-    player = fields.Many2one('game.player')
+    player = fields.Many2one('res.partner')
     isla = fields.Many2one('game.isla')
 
     _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
@@ -72,7 +73,7 @@ class isla(models.Model):
     oro = fields.Integer(default=random.randint(100, 400))
     adamantium = fields.Integer(default=random.randint(0, 300))
 
-    player = fields.Many2one('game.player')
+    player = fields.Many2one('res.partner')
     archipielago = fields.Many2one('game.archipielago', ondelete='cascade', required=True)
 
     barcos = fields.One2many('game.barco', 'isla')
@@ -129,7 +130,7 @@ class archipielago(models.Model):
     name = fields.Char(default=name_generator)
 
     islas = fields.One2many('game.isla', 'archipielago')
-    players = fields.Many2many('game.player')
+    players = fields.Many2many('res.partner')
 
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
@@ -145,7 +146,7 @@ class viaje(models.Model):
     finish = fields.Date()
     horas = fields.Integer()
 
-    player = fields.Many2one('game.player')
+    player = fields.Many2one('res.partner')
 
     origen_isla = fields.Many2one('game.isla')
     destino_isla = fields.Many2one('game.isla')
@@ -161,7 +162,7 @@ class viaje(models.Model):
 class levels(models.Model):
     _name = 'game.levels'
 
-    player = fields.Many2one('game.player')
+    player = fields.Many2one('res.partner')
     date = fields.Char(default=lambda self: fields.Datetime.now())
     levels = fields.Integer()
 
@@ -181,15 +182,15 @@ class challenge(models.Model):
     start_date = fields.Datetime(default=fields.Datetime.now)
     end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now()+timedelta(hours=48)))
     finished = fields.Boolean(default=False)
-    player_1 = fields.Many2one('game.player', required=True, ondelete='restrict')
-    player_2 = fields.Many2one('game.player', required=True, ondelete='restrict')
+    player_1 = fields.Many2one('res.partner', required=True, ondelete='restrict')
+    player_2 = fields.Many2one('res.partner', required=True, ondelete='restrict')
     isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     ### Challenge objective
     recurso = fields.Selection([('madera','Madera'),('bronce','Bronce'),('hirro','Hierro'),('plata','Plata'),('oro','Oro'),('adamantium','Adamantium')])
     target_goal = fields.Float()
     cantidad = fields.Float()
-    winner = fields.Many2one('game.player', ondelete='restrict', readonly=True)
+    winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
 
 
     player_1_avatar = fields.Image(related='player_1.photo')

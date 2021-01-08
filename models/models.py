@@ -27,6 +27,7 @@ class player(models.Model):
     _description = 'Jugador'
 
     #name = fields.Char(default=name_generator)
+    is_player = fields.Boolean(default=True)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
     points = fields.Integer()
@@ -81,7 +82,7 @@ class isla(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
 
-    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 
     def calculate_production(self):
@@ -135,7 +136,7 @@ class archipielago(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
 
-    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 class viaje(models.Model):
     _name = "game.viaje"

@@ -92,8 +92,59 @@
                     </sheet>
                 </form>
             </field>
+        </record>
 
-
+        <record model="ir.ui.view" id="game.player_inherit_form">
+            <field name="name">Player inherit form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Player">
+                        <group string="Personal Data">
+                            <field name="is_player"/>
+                        </group>
+                        <header>
+                            <field name="name" widget="statusbar"/>
+                        </header>
+                        <header>
+                            <field name="level" widget="statusbar"/>
+                        </header>
+                        <header>
+                            <field name="points" widget="statusbar"/>
+                        </header>
+                        <field name="photo" widget="image"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="level"/>
+                        </group>
+                        <notebook>
+                            <page string="Islas">
+                                <field name="islas" context="{'default_player':active_id}"/>
+                                <button name="%(game.agregar_isla)d" type="action" string="Agregar isla" icon="fa-bolt"
+                                        context="{'default_player':active_id}"></button>
+                            </page>
+                            <page string="Archipiélagos">
+                                <field name="archipielagos"/>
+                            </page>
+                            <page string="Barcos">
+                                <field name="barcos"/>
+                            </page>
+                            <page string="Levels">
+                                <field name="levels">
+                                    <tree>
+                                        <field name="player"/>
+                                        <field name="date"/>
+                                        <field name="levels"/>
+                                    </tree>
+                                </field>
+                                <button name="%(game.launch_levels_graph)d" type="action" string="Show Graph"
+                                        class="oe_highlight"></button>
+                            </page>
+                        </notebook>
+                    </page>
+                </notebook>
+            </field>
         </record>
 
         <record model="ir.ui.view" id="game.player_search">

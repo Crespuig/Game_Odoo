@@ -153,7 +153,7 @@ class viaje(models.Model):
     destino_isla = fields.Many2one('game.isla')
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
 
-    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     @api.depends('origen_isla', 'destino_isla', 'player')
     def _get_name(self):

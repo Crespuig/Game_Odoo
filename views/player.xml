@@ -160,5 +160,14 @@
                 </search>
             </field>
         </record>
+        <record model="ir.ui.view" id="game.player_search">
+            <field name="name">Player search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter name="player_partner" string="Is Player" domain="[('is_player','=',True)]" />
+                </search>
+            </field>
+        </record>
     </data>
 </odoo>

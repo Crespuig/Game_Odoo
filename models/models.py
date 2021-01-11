@@ -28,6 +28,7 @@ class player(models.Model):
 
     #name = fields.Char(default=name_generator)
     is_player = fields.Boolean(default=True)
+    is_premium = fields.Boolean(default=False)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
     points = fields.Integer()
@@ -43,6 +44,17 @@ class player(models.Model):
     photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+
+
+
+    '''def assign_random_isla(self):
+        for p in self:
+            islas = self.env['game.isla'].search([('player', '=', False)]).ids
+            isla = self.env['game.isla'].browse(random.choice(islas))
+            isla.write({'player': p.id})
+            life_support = self.env['terraform.building'].create({
+                'isla': isla.id
+            })'''
 
 
 class barco(models.Model):
@@ -73,6 +85,8 @@ class isla(models.Model):
     plata = fields.Integer(default=random.randint(200, 500))
     oro = fields.Integer(default=random.randint(100, 400))
     adamantium = fields.Integer(default=random.randint(0, 300))
+    pos_x = fields.Integer(default=lambda self: self.random_generator(-100, 100))
+    pos_y = fields.Integer(default=lambda self: self.random_generator(-100, 100))
 
     player = fields.Many2one('res.partner')
     archipielago = fields.Many2one('game.archipielago', ondelete='cascade', required=True)
@@ -81,6 +95,10 @@ class isla(models.Model):
 
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
+
+    @api.model
+    def random_generator(self, a, b):
+        return random.randint(a, b)
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
@@ -142,7 +160,7 @@ class viaje(models.Model):
     _name = "game.viaje"
     _description = "Viaje"
 
-    name = fields.Char(compute='_get_name')
+    name = fields.Char(compute='_get_viaje_name')
     fecha = fields.Datetime()
     finish = fields.Date()
     horas = fields.Integer()
@@ -151,14 +169,27 @@ class viaje(models.Model):
 
     origen_isla = fields.Many2one('game.isla')
     destino_isla = fields.Many2one('game.isla')
+    duracion_viaje = fields.Integer(deafult=0, compute='_get_duracion_viaje')
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     @api.depends('origen_isla', 'destino_isla', 'player')
-    def _get_name(self):
+    def _get_viaje_name(self):
         for t in self:
-            t.name = str(t.player.name) + " " + str(t.origen_isla.name) + " -> " + str(t.destino_isla.name)
+            if t.player.name is False or t.origen_isla.name is False or t.destino_isla.name is False:
+                t.name = "Viaje nombre"
+            else:
+                t.name = str(t.player.name) + " " + str(t.origen_isla.name) + " -> " + str(t.destino_isla.name)
+
+    @api.depends('origen_isla', 'destino_isla')
+    def _get_duracion_viaje(self):
+        for t in self:
+            t.duracion_viaje = ((((t.destino_isla.pos_x - t.origen_isla.pos_x) ** 2) + (
+                        (t.destino_isla.pos_y - t.origen_isla.pos_y) ** 2)) ** 0.5)
+
+            if t.duracion_viaje < 100:
+                t.duracion_viaje = 100
 
 class levels(models.Model):
     _name = 'game.levels'

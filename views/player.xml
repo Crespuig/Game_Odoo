@@ -88,6 +88,9 @@
                                 <button name="%(game.launch_levels_graph)d" type="action" string="Show Graph"
                                         class="oe_highlight"></button>
                             </page>
+                            <page string="Premium">
+                                <field name="is_premium"/>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -141,6 +144,9 @@
                                 <button name="%(game.launch_levels_graph)d" type="action" string="Show Graph"
                                         class="oe_highlight"></button>
                             </page>
+                            <page string="Premium">
+                                <field name="is_premium"/>
+                            </page>
                         </notebook>
                     </page>
                 </notebook>
@@ -157,14 +163,6 @@
                     <filter name="maxLevel" string="Nivel máximo" domain="[('level','>','99')]"></filter>
                     <filter name="group_by_archipielago" string="Agrupar por nivel"
                             context="{'group_by': 'level'}"></filter>
-                </search>
-            </field>
-        </record>
-        <record model="ir.ui.view" id="game.player_search">
-            <field name="name">Player search</field>
-            <field name="model">res.partner</field>
-            <field name="arch" type="xml">
-                <search>
                     <filter name="player_partner" string="Is Player" domain="[('is_player','=',True)]" />
                 </search>
             </field>

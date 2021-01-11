@@ -3,7 +3,7 @@
         <!-- PLAYERS -->
         <record id="game.player_01" model="res.partner">
             <field name="name">Patriota</field>
-            <field name="level">30</field>
+            <field name="level">100</field>
             <field name="photo">/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
 HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
 MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAFKAkQDASIA

@@ -88,7 +88,7 @@ class isla(models.Model):
     pos_x = fields.Integer(default=lambda self: self.random_generator(-100, 100))
     pos_y = fields.Integer(default=lambda self: self.random_generator(-100, 100))
 
-    player = fields.Many2one('res.partner')
+    player = fields.Many2one('res.partner', readonly=True)
     archipielago = fields.Many2one('game.archipielago', ondelete='cascade', required=True)
 
     barcos = fields.One2many('game.barco', 'isla')

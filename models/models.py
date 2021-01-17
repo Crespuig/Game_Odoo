@@ -211,7 +211,7 @@ class viaje_wizard(models.TransientModel):
         }
 
     @api.onchange('origen_isla')
-    def onchange_planet(self):
+    def onchange_isla(self):
         return {
             'domain': {'destino_isla': [('id', '!=', self.origen_isla.id)]},
         }

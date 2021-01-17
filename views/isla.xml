@@ -48,6 +48,8 @@
             </field>
         </record>
 
+
+
         <record model="ir.ui.view" id="game.isla_search">
             <field name="name">Isla</field>
             <field name="model">game.isla</field>

@@ -43,9 +43,9 @@
 
     <record model="ir.ui.view" id="game.viaje_wizard_form">
         <field name="name">Viaje wizard Form</field>
-        <field name="model">game.travel_wizard</field>
+        <field name="model">game.viaje_wizard</field>
         <field name="arch" type="xml">
-            <form string="travel">
+            <form string="Viaje">
                 <sheet>
                     <group string="">
                         <field name="player"/>
@@ -53,20 +53,20 @@
                         <field name="destino_isla"/>
                     </group>
                     <footer>
-                        <button name="create_travel" type="object"
-                                string="Create" class="oe_highlight"/>
+                        <button name="crear_viaje" type="object"
+                                string="Crear" class="oe_highlight"/>
                         or
-                        <button special="cancel" string="Cancel"/>
+                        <button special="Cancelar" string="Cancel"/>
                     </footer>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <act_window id="game.launch_travel_wizard"
-                name="Launch travel"
+    <act_window id="game.launch_viaje_wizard"
+                name="Crear viaje"
                 binding_model="res.partner"
-                res_model="game.travel_wizard"
+                res_model="game.viaje_wizard"
                 view_mode="form"
                 target="new"
     />

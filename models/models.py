@@ -191,6 +191,48 @@ class viaje(models.Model):
             if t.duracion_viaje < 100:
                 t.duracion_viaje = 100
 
+class viaje_wizard(models.TransientModel):
+    _name = 'game.viaje_wizard'
+
+    def _default_player(self):
+        return self.env['res.partner'].browse(self._context.get('active_id'))  # El context conté, entre altre coses,
+        # el active_id del model que està obert.
+    player = fields.Many2one('res.partner', required=True, default=_default_player , domain="[('is_player', '=', True)]", readonly=True)
+    origen_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
+    destino_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
+    #distance = fields.Float(compute='_get_distance')  # Distancia en temps
+
+    @api.onchange('player')
+    def onchange_player(self):
+        return {
+            'domain': {'origen_isla': [('player', '=', self.player.id)]},
+        }
+
+    @api.onchange('origen_isla')
+    def onchange_planet(self):
+        return {
+            'domain': {'destino_isla': [('id', '!=', self.origen_isla.id)]},
+        }
+
+    '''
+    @api.depends('origen_isla', 'destino_isla')
+    def _get_distance(self):
+        for t in self:
+            if (t.origen_isla and t.destino_isla):
+                distance = abs(int(t.origen_isla.sun.coordinates) - int(t.destiny_planet.sun.coordinates)) + 0.1
+                t.distance = distance
+            else:
+                t.distance = 0
+    '''
+
+
+    def crear_viaje(self):
+        self.env['game.viaje'].create({
+            'player': self.player.id,
+            'origen_isla': self.origen_isla.id,
+            'destino_isla': self.destino_isla.id
+        })
+
 class levels(models.Model):
     _name = 'game.levels'
 

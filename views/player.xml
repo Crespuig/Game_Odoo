@@ -44,6 +44,14 @@
                 target="new"
                 domain="[('isla','=',active_id)]"
         />
+        <act_window
+                id="game.crear_combate"
+                name="Crear combate"
+                res_model="game.wizard_challenge"
+                view_mode="form"
+                target="new"
+                domain="[('challenge','=',active_id)]"
+        />
 
         <record model="ir.ui.view" id="game.player_form">
             <field name="name">Player</field>
@@ -87,6 +95,11 @@
                                 </field>
                                 <button name="%(game.launch_levels_graph)d" type="action" string="Show Graph"
                                         class="oe_highlight"></button>
+                            </page>
+                            <page string="Combates">
+                                <field name="combates" context="{'default_player':active_id}"/>
+                                <button name="%(game.crear_combate)d" type="action" string="Crear combate" icon="fa-bolt"
+                                        context="{'default_player':active_id}"></button>
                             </page>
                             <page string="Premium">
                                 <field name="is_premium"/>

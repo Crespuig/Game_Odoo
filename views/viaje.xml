@@ -55,7 +55,6 @@
                     <footer>
                         <button name="crear_viaje" type="object"
                                 string="Crear" class="oe_highlight"/>
-                        or
                         <button special="Cancelar" string="Cancel"/>
                     </footer>
                 </sheet>

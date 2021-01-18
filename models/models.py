@@ -37,6 +37,7 @@ class player(models.Model):
     islas = fields.One2many('game.isla', 'player')
     viajes = fields.One2many('game.viaje', 'player')
     levels = fields.One2many('game.levels', 'player')
+    combates = fields.One2many('game.challenge', 'player')
 
     archipielagos = fields.Many2many('game.archipielago')
 
@@ -254,6 +255,7 @@ class challenge(models.Model):
     _name = 'game.challenge'
     _description = 'Player challenges'
     # Main fields
+    player = fields.Many2one('res.partner', readonly=True)
     nombre = fields.Char(default=name_generator)
     start_date = fields.Datetime(default=fields.Datetime.now)
     end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now()+timedelta(hours=48)))

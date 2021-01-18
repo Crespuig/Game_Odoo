@@ -6,5 +6,6 @@ acces_game_viaje,game.viaje,model_game_viaje,base.group_user,1,1,1,1
 acces_game_levels,game.levels,model_game_levels,base.group_user,1,1,1,1
 acces_game_template,game.template,model_game_template,base.group_user,1,1,1,1
 acces_game_challenge,game.challenge,model_game_challenge,base.group_user,1,1,1,1
+acces_game_wizard_challenge,game.wizard_challenge,model_game_wizard_challenge,base.group_user,1,1,1,1
 
 

@@ -1,15 +1,27 @@
 from odoo import models, fields, api
 import random
 import string
-import json
-import math
-from datetime import datetime, timedelta
 
+
+def name_generator(self):
+    letters = list(string.ascii_lowercase)
+    first = list(string.ascii_uppercase)
+    vocals = ['a','e','i','o','u','y','']
+    name = random.choice(first)
+    for i in range(0,random.randint(3,5)):
+        name = name+random.choice(letters)+random.choice(vocals)
+    return name
+
+def image_generator(self):
+    images = self.env['game.template'].search([]).mapped('photo')
+    image = random.choice(images)
+
+    return image
 
 class wizard_isla(models.TransientModel):
     _name = 'game.wizard_isla'
 
-    name = fields.Char(required=True)
+    name = fields.Char(default=name_generator, required=True)
     player = fields.Many2one('res.partner', domain="[('is_player', '=', True)]")
     #n_isla = fields.Integer()
 

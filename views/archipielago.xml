@@ -1,6 +1,6 @@
 <odoo>
     <data>
-<!--TREE FORM ARCHIPIELAGO -->
+        <!--TREE FORM ARCHIPIELAGO -->
         <record model="ir.ui.view" id="game.archipielago_tree">
             <field name="name">Archipielago</field>
             <field name="model">game.archipielago</field>
@@ -14,6 +14,14 @@
             </field>
         </record>
 
+        <act_window
+                id="game.crear_isla"
+                name="Crear isla"
+                res_model="game.wizard_isla"
+                view_mode="form"
+                target="new"
+                domain="[('isla','=',active_id)]"
+        />
 
         <record model="ir.ui.view" id="game.archipielago_form">
             <field name="name">Archipielago</field>
@@ -95,6 +103,10 @@
                                 </field>
                             </page>
                         </notebook>
+                        <footer>
+                            <button name="%(game.launch_wizard_isla)d" type="action" string="Crear Isla"
+                                    class="oe_highlight"/>
+                        </footer>
                     </sheet>
                 </form>
             </field>

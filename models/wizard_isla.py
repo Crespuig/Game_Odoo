@@ -11,7 +11,7 @@ class wizard_isla(models.TransientModel):
 
     name = fields.Char(required=True)
     player = fields.Many2one('res.partner', domain="[('is_player', '=', True)]")
-    n_isla = fields.Integer()
+    #n_isla = fields.Integer()
 
     def _default_archipielago(self):
         return self.env['game.archipielago'].browse(self._context.get('active_id'))
@@ -25,8 +25,8 @@ class wizard_isla(models.TransientModel):
     oro = fields.Integer()
     adamantium = fields.Integer()
 
-    state = fields.Selection([('global', 'Global Data'),
-                              ('enviroment', 'Enviroment')],
+    state = fields.Selection([('global', 'Global'),
+                              ('enviroment', 'Recursos')],
                              default='global')
     '''
     @api.depends('archipielago')
@@ -73,7 +73,7 @@ class wizard_isla(models.TransientModel):
             'name': "Isla Wizard",
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'game.isla_wizard',
+            'res_model': 'game.wizard_isla',
             'res_id': self.id,
             'context': self._context,
             'type': 'ir.actions.act_window',

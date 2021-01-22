@@ -4,7 +4,7 @@
             <field name="name">isla wizard Form</field>
             <field name="model">game.wizard_isla</field>
             <field name="arch" type="xml">
-                <form string="Planet">
+                <form string="Isla">
                     <header>
                         <field name="state" widget="statusbar"></field>
                     </header>
@@ -13,23 +13,30 @@
                         <!--
                         <field name="images_template"/>
                         -->
-                        <group string="Global Data">
+                        <group string="Global">
                             <group states="global">
                                 <field name="name"/>
                                 <field name="player"/>
+                                <!--
                                 <field name="n_isla"/>
+                                -->
                                 <field name="archipielago"/>
                             </group>
-                            <group states="enviroment">
-                                <field name="madera"/>
-                                <field name="bronce"/>
-                                <field name="hierro"/>
-                                <field name="plata"/>
-                                <field name="oro"/>
-                                <field name="adamantium"/>
-                            </group>
+
                         </group>
-                        <footer >
+                        <sheet>
+                            <group string="Recursos">
+                                <group states="enviroment">
+                                    <field name="madera"/>
+                                    <field name="bronce"/>
+                                    <field name="hierro"/>
+                                    <field name="plata"/>
+                                    <field name="oro"/>
+                                    <field name="adamantium"/>
+                                </group>
+                            </group>
+                        </sheet>
+                        <footer>
                             <button states="global" name="next" type="object"
                                     string="Next" class="oe_highlight"/>
 
@@ -40,8 +47,6 @@
                                     string="Create" class="oe_highlight"/>
 
                             <button states="global, enviroment" special="cancel" string="Cancel"/>
-
-
                         </footer>
                     </sheet>
                 </form>

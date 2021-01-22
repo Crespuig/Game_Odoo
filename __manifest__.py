@@ -27,6 +27,7 @@
         'security/ir.model.access.csv',
         'views/player.xml',
         'views/archipielago.xml',
+        'views/wizard_isla.xml',
         'views/isla.xml',
         'views/barco.xml',
         'views/viaje.xml',

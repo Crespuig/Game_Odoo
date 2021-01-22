@@ -34,8 +34,8 @@ class wizard_challenge(models.TransientModel):
 
     def crear_combate(self):
         self.env['game.challenge'].create({
-            'player_1': self.player.id,
-            'player_2': self.player.id,
+            'player_1': self.player_1.id,
+            'player_2': self.player_2.id,
             'isla_1': self.isla_1.id,
             'isla_2': self.isla_2.id
         })

@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="game.isla_wizard_form">
+            <field name="name">isla wizard Form</field>
+            <field name="model">game.wizard_isla</field>
+            <field name="arch" type="xml">
+                <form string="Planet">
+                    <header>
+                        <field name="state" widget="statusbar"></field>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image"/>
+                        <!--
+                        <field name="images_template"/>
+                        -->
+                        <group string="Global Data">
+                            <group states="global">
+                                <field name="name"/>
+                                <field name="player"/>
+                                <field name="n_isla"/>
+                                <field name="archipielago"/>
+                            </group>
+                            <group states="enviroment">
+                                <field name="madera"/>
+                                <field name="bronce"/>
+                                <field name="hierro"/>
+                                <field name="plata"/>
+                                <field name="oro"/>
+                                <field name="adamantium"/>
+                            </group>
+                        </group>
+                        <footer >
+                            <button states="global,enviroment" name="next" type="object"
+                                    string="Next" class="oe_highlight"/>
+
+                            <button states="buildings" name="create_planet" type="object"
+                                    string="Create" class="oe_highlight"/>
+                            <button states="global, enviroment ,buildings" special="cancel" string="Cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="game.launch_wizard_isla"
+                    name="Isla Wizard"
+                    binding_model="game.archipielago"
+                    res_model="game.wizard_isla"
+                    view_mode="form"
+                    target="new"
+        />
+
+    </data>
+</odoo>

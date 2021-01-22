@@ -13,6 +13,8 @@
                 </tree>
             </field>
         </record>
+
+
         <record model="ir.ui.view" id="game.archipielago_form">
             <field name="name">Archipielago</field>
             <field name="model">game.archipielago</field>

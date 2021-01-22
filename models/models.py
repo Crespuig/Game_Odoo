@@ -77,6 +77,7 @@ class isla(models.Model):
     photo = fields.Image(default=image_generator, max_width=100, max_heigth=100)
     name = fields.Char(default=name_generator)
     level = fields.Integer(default=random.randint(1, 100))
+    n_isla = fields.Integer()
 
     #Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
     #depende del nivel de la isla tendra unso recursos o otros

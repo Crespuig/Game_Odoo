@@ -30,12 +30,18 @@
                             </group>
                         </group>
                         <footer >
-                            <button states="global,enviroment" name="next" type="object"
+                            <button states="global" name="next" type="object"
                                     string="Next" class="oe_highlight"/>
 
-                            <button states="buildings" name="create_planet" type="object"
+                            <button states="enviroment" name="previous" type="object"
+                                    string="Previous" class="oe_highlight"/>
+
+                            <button states="enviroment" name="crear_isla" type="object"
                                     string="Create" class="oe_highlight"/>
-                            <button states="global, enviroment ,buildings" special="cancel" string="Cancel"/>
+
+                            <button states="global, enviroment" special="cancel" string="Cancel"/>
+
+
                         </footer>
                     </sheet>
                 </form>

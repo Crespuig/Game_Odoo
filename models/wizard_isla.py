@@ -26,10 +26,8 @@ class wizard_isla(models.TransientModel):
     adamantium = fields.Integer()
 
     state = fields.Selection([('global', 'Global Data'),
-                              ('enviroment', 'Enviroment'),
-                              ('buildings', 'Buildings')],
-                             default='global'
-                             )
+                              ('enviroment', 'Enviroment')],
+                             default='global')
     '''
     @api.depends('archipielago')
     def get_n_isla(self):
@@ -57,8 +55,6 @@ class wizard_isla(models.TransientModel):
     def next(self):
         if self.state == 'global':
             self.state = 'enviroment'
-        elif self.state == 'enviroment':
-            self.state = 'buildings'
         return {
             'name': "Isla Wizard",
             'view_type': 'form',
@@ -71,9 +67,7 @@ class wizard_isla(models.TransientModel):
         }
 
     def previous(self):
-        if self.state == 'buildings':
-            self.state = 'enviroment'
-        elif self.state == 'enviroment':
+        if self.state == 'enviroment':
             self.state = 'global'
         return {
             'name': "Isla Wizard",
@@ -90,7 +84,7 @@ class wizard_isla(models.TransientModel):
         nueva_isla = {}
         nueva_isla['name'] = self.name
         nueva_isla['player'] = self.player.id
-        nueva_isla['image'] = self.image
+        nueva_isla['photo'] = self.image
         nueva_isla['n_isla'] = self.n_isla
         nueva_isla['archipielago'] = self.archipielago.id
         nueva_isla['madera'] = self.madera

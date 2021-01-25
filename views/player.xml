@@ -98,9 +98,6 @@
                             </page>
                             <page string="Combates">
                                 <field name="combates" context="{'default_player':active_id}"/>
-                                <button name="%(game.crear_combate)d" type="action" string="Crear combate"
-                                        icon="fa-bolt"
-                                        context="{'default_player':active_id}"></button>
                             </page>
                             <page string="Premium">
                                 <field name="is_premium"/>

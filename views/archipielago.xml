@@ -50,7 +50,7 @@
                                                         <img class="o_image_64_contain"
                                                              t-att-alt="record.name.value"
 
-                                                             t-att-src="kanban_image('game.player', 'photo', record.id.raw_value)"/>
+                                                             t-att-src="kanban_image('res.partner', 'photo', record.id.raw_value)"/>
                                                     </a>
                                                     <div class="oe_product_desc">
                                                         <div class="oe_product_desc">
@@ -68,11 +68,7 @@
                                     </kanban>
                                 </field>
                             </page>
-                            <page string="Islas">
-                                <field name="islas" context="{'default_player':active_id}"/>
-                                <button name="%(game.agregar_isla)d" type="action" string="Agregar isla"
-                                        icon="fa-bolt" context="{'default_player':active_id}"></button>
-                            </page>
+
                             <page string="Islas">
                                 <field name="islas">
                                     <kanban>
@@ -101,6 +97,8 @@
                                         </templates>
                                     </kanban>
                                 </field>
+                                <button name="%(game.agregar_isla)d" type="action" string="Agregar isla"
+                                        icon="fa-bolt" context="{'default_player':active_id}"></button>
                             </page>
                         </notebook>
                         <footer>

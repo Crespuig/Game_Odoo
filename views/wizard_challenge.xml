@@ -9,11 +9,11 @@
                         <field name="state" widget="statusbar"></field>
                     </header>
                     <sheet>
-                        <group string="Global">
-                            <group states="global">
+                        <group states="global" string="Global">
+                            <group>
                                 <field name="nombre"/>
                             </group>
-                            <group states="global">
+                            <group>
                                 <field name="recurso"/>
                                 <field name="cantidad"/>
                             </group>

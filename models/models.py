@@ -62,12 +62,46 @@ class barco(models.Model):
     _name = 'game.barco'
     _description = 'Barco'
 
-    name = fields.Char()
-
+    name = fields.Char(default=name_generator)
+    photo = fields.Image(max_width=150, max_heigth=150)
     player = fields.Many2one('res.partner')
     isla = fields.Many2one('game.isla')
+    activo = fields.Boolean(default=True)
 
-    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+
+class tipo_barco(models.Model):
+    _name = 'game.tipo_barco'
+    _description = 'Tipos de barcos'
+
+    name = fields.Char()
+    velocidad = fields.Integer(default=0)
+    resistencia = fields.Integer(default=0)
+    ataque = fields.Integer(default=0)
+
+    '''
+    time = fields.Float(default=10)
+    required_buildings = fields.Many2many('terraform.building_type', relation='required_buildings_many2many',
+                                          column1='building', column2='required')
+    required_enviroment = fields.Char(default='{"min_temp":"-20", "max_temp":"60",'
+                                              '"min_oxigen":"50",'
+                                              '"min_co2":"50",'
+                                              '"min_water":"1",'
+                                              '"min_gravity":"1","max_gravity":"20",'
+                                              '"min_air":"0.1","max_air":"10"}')
+    '''
+
+    '''
+        def barco(self):
+        for b in self:
+            print(self.env.context.get('isla'))
+            construction = self.env['terraform.construction'].create({
+                'planet': self.env.context.get('planet'),
+                'building_type': b.id,
+            })
+    '''
+
+
 
 
 class isla(models.Model):
@@ -78,6 +112,7 @@ class isla(models.Model):
     name = fields.Char(default=name_generator)
     level = fields.Integer(default=random.randint(1, 100))
     n_isla = fields.Integer()
+    #construction_buildings = fields.Many2many('game.construccion', compute='_get_barcos_disponibles')
 
     #Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
     #depende del nivel de la isla tendra unso recursos o otros

@@ -97,7 +97,7 @@ class wizard_isla(models.TransientModel):
         nueva_isla['name'] = self.name
         nueva_isla['player'] = self.player.id
         nueva_isla['photo'] = self.image
-        nueva_isla['n_isla'] = self.n_isla
+#        nueva_isla['n_isla'] = self.n_isla
         nueva_isla['archipielago'] = self.archipielago.id
         nueva_isla['madera'] = self.madera
         nueva_isla['bronce'] = self.bronce

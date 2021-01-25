@@ -13,8 +13,8 @@
                         <!--
                         <field name="images_template"/>
                         -->
-                        <group string="Global">
-                            <group states="global">
+                        <group states="global" string="Global">
+                            <group>
                                 <field name="name"/>
                                 <field name="player"/>
                                 <!--
@@ -25,8 +25,8 @@
 
                         </group>
                         <sheet>
-                            <group string="Recursos">
-                                <group states="enviroment">
+                            <group states="enviroment" string="Recursos">
+                                <group>
                                     <field name="madera"/>
                                     <field name="bronce"/>
                                     <field name="hierro"/>

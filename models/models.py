@@ -266,11 +266,22 @@ class viaje_wizard(models.TransientModel):
 
 
     def crear_viaje(self):
-        self.env['game.viaje'].create({
+        viaje = self.env['game.viaje'].create({
             'player': self.player.id,
             'origen_isla': self.origen_isla.id,
             'destino_isla': self.destino_isla.id
         })
+
+        return {
+            'name': 'Nuevo viaje',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'game.viaje',
+            'res_id': viaje.id,
+            'context': self._context,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+        }
 
 class levels(models.Model):
     _name = 'game.levels'

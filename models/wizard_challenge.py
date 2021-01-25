@@ -15,7 +15,8 @@ class wizard_challenge(models.TransientModel):
     start_date = fields.Datetime(default=fields.Datetime.now)
     end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now() + timedelta(hours=48)))
     finished = fields.Boolean(default=False)
-    player_1 = fields.Many2one('res.partner', default=_default_player, domain="[('is_player', '=', True)]", ondelete='restrict', readonly=True)
+    player_1 = fields.Many2one('res.partner', default=_default_player, domain="[('is_player', '=', True)]",
+                               ondelete='restrict', readonly=True)
     player_2 = fields.Many2one('res.partner', ondelete='restrict', domain="[('is_player', '=', True)]")
     isla_1 = fields.Many2one('game.isla', ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', ondelete='restrict')
@@ -25,7 +26,7 @@ class wizard_challenge(models.TransientModel):
          ('adamantium', 'Adamantium')], required=True)
     target_goal = fields.Float()
     cantidad = fields.Float(required=True)
-    #winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
+    # winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
 
     player_1_avatar = fields.Image(related='player_1.photo')
     player_2_avatar = fields.Image(related='player_2.photo')
@@ -37,13 +38,24 @@ class wizard_challenge(models.TransientModel):
                              default='global')
 
     def crear_combate(self):
-        self.env['game.challenge'].create({
+        combate = self.env['game.challenge'].create({
             'nombre': self.nombre,
             'player_1': self.player_1.id,
             'player_2': self.player_2.id,
             'isla_1': self.isla_1.id,
             'isla_2': self.isla_2.id
         })
+
+        return {
+            'name': 'Nueva combate',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'game.challenge',
+            'res_id': combate.id,
+            'context': self._context,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+        }
 
     @api.onchange('player_1')
     def _onchange_player1(self):
@@ -104,8 +116,3 @@ class wizard_challenge(models.TransientModel):
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
-
-
-
-
-

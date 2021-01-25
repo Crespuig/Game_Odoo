@@ -15,10 +15,10 @@ class wizard_challenge(models.TransientModel):
     start_date = fields.Datetime(default=fields.Datetime.now)
     end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now() + timedelta(hours=48)))
     finished = fields.Boolean(default=False)
-    player_1 = fields.Many2one('res.partner', required=True, default=_default_player, domain="[('is_player', '=', True)]", ondelete='restrict', readonly=True)
-    player_2 = fields.Many2one('res.partner', required=True, ondelete='restrict', domain="[('is_player', '=', True)]")
-    isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
-    isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
+    player_1 = fields.Many2one('res.partner', default=_default_player, domain="[('is_player', '=', True)]", ondelete='restrict', readonly=True)
+    player_2 = fields.Many2one('res.partner', ondelete='restrict', domain="[('is_player', '=', True)]")
+    isla_1 = fields.Many2one('game.isla', ondelete='restrict')
+    isla_2 = fields.Many2one('game.isla', ondelete='restrict')
     ### Challenge objective
     recurso = fields.Selection(
         [('madera', 'Madera'), ('bronce', 'Bronce'), ('hirro', 'Hierro'), ('plata', 'Plata'), ('oro', 'Oro'),
@@ -32,8 +32,13 @@ class wizard_challenge(models.TransientModel):
     isla_1_image = fields.Image(related='isla_1.photo')
     isla_2_image = fields.Image(related='isla_2.photo')
 
+    state = fields.Selection([('global', 'Global'),
+                              ('jugadores', 'Jugadores')],
+                             default='global')
+
     def crear_combate(self):
         self.env['game.challenge'].create({
+            'nombre': self.nombre,
             'player_1': self.player_1.id,
             'player_2': self.player_2.id,
             'isla_1': self.isla_1.id,
@@ -72,6 +77,33 @@ class wizard_challenge(models.TransientModel):
                        'player_1': [('id', '!=', self.player_2.id)]},
         }
 
+    def next(self):
+        if self.state == 'global':
+            self.state = 'jugadores'
+        return {
+            'name': "Challenge Wizard",
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'game.wizard_challenge',
+            'res_id': self.id,
+            'context': self._context,
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
+
+    def previous(self):
+        if self.state == 'jugadores':
+            self.state = 'global'
+        return {
+            'name': "Challenge Wizard",
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'game.wizard_challenge',
+            'res_id': self.id,
+            'context': self._context,
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
 
 
 

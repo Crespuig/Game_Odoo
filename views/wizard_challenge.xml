@@ -1,39 +1,28 @@
 <odoo>
     <data>
-        <!-- CHALLENGE -->
-        <record model="ir.ui.view" id="game.challenge_tree">
-            <field name="name">Combate</field>
-            <field name="model">game.challenge</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="nombre"></field>
-                    <field name="player_1"></field>
-                    <field name="isla_1"></field>
-                    <field name="player_2"></field>
-                    <field name="isla_2"></field>
-                    <field name="start_date"></field>
-                    <field name="end_date"></field>
-                    <field name="winner"></field>
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="game.challenge_form">
-            <field name="name">challenge Form</field>
-            <field name="model">game.challenge</field>
+        <record model="ir.ui.view" id="game.wizard_challenge_form">
+            <field name="name">challenge wizard Form</field>
+            <field name="model">game.wizard_challenge</field>
             <field name="arch" type="xml">
                 <form string="challenge">
+                    <header>
+                        <field name="state" widget="statusbar"></field>
+                    </header>
                     <sheet>
-                        <group string="Combate">
-                            <group>
+                        <group string="Global">
+                            <group states="global">
                                 <field name="nombre"/>
                             </group>
-                            <group>
+                            <group states="global">
                                 <field name="recurso"/>
                                 <field name="cantidad"/>
                             </group>
                         </group>
-                        <group string="Jugadores">
+
+
+                    </sheet>
+                    <sheet>
+                        <group states="jugadores" string="Jugadores">
                             <group string="Jugador 1" col="4">
                                 <field name="player_1"/>
                                 <field name="player_1_avatar" widget="image" nolabel="1"
@@ -50,15 +39,30 @@
                                 <field name="isla_2_image" widget="image" nolabel="1"
                                        attrs="{'invisible':[('isla_2', '==', False)]}"/>
                             </group>
-                            <group string="Ganador" col="4">
-                                <field name="winner"/>
-                            </group>
                         </group>
                     </sheet>
+                    <footer>
+                        <button states="global" name="next" type="object"
+                                string="Next" class="oe_highlight"/>
+
+                        <button states="jugadores" name="previous" type="object"
+                                string="Previous" class="oe_highlight"/>
+
+                        <button states="jugadores" name="crear_combate" type="object"
+                                string="Create" class="oe_highlight"/>
+
+                        <button states="global, jugadores" special="cancel" string="Cancel"/>
+                    </footer>
                 </form>
             </field>
         </record>
 
-
+        <act_window id="game.launch_challenge_wizard"
+                    name="Crear Combate"
+                    binding_model="res.partner"
+                    res_model="game.wizard_challenge"
+                    view_mode="form"
+                    target="new"
+        />
     </data>
 </odoo>

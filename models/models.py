@@ -257,7 +257,7 @@ class challenge(models.Model):
     _description = 'Player challenges'
     # Main fields
     player = fields.Many2one('res.partner', readonly=True)
-    nombre = fields.Char(default=name_generator)
+    nombre = fields.Char()
     start_date = fields.Datetime(default=fields.Datetime.now)
     end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now()+timedelta(hours=48)))
     finished = fields.Boolean(default=False)

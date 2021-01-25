@@ -32,6 +32,7 @@
         'views/barco.xml',
         'views/viaje.xml',
         'views/challenge.xml',
+        'views/wizard_challenge.xml',
         'views/actions.xml',
         'views/menus.xml',
         'views/templates.xml',

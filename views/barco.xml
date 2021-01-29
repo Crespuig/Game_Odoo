@@ -1,27 +1,46 @@
 <odoo>
     <data>
-<!--TREE FORM BARCO -->
+        <!--TREE FORM BARCO -->
         <record model="ir.ui.view" id="game.barco_tree">
             <field name="name">Barco</field>
             <field name="model">game.barco</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="photo_small" widget="image"/>
                     <field name="name"/>
                     <field name="player"/>
                     <field name="isla"/>
+                    <field name="vida"/>
+                    <field name="activo"/>
+                    <field name="velocidad"/>
+                    <field name="defensa"/>
+                    <field name="ataque"/>
+                    <field name="level"/>
                 </tree>
             </field>
         </record>
+
         <record model="ir.ui.view" id="game.barco_form">
             <field name="name">Barco</field>
             <field name="model">game.barco</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <field name="photo" widget="image"/>
                         <group>
-                            <field name="name"/>
-                            <field name="player"/>
-                            <field name="isla"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="player"/>
+                                <field name="isla"/>
+                                <field name="vida"/>
+                            </group>
+                            <group>
+                                <field name="activo"/>
+                                <field name="velocidad"/>
+                                <field name="defensa"/>
+                                <field name="ataque"/>
+                                <field name="level"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>

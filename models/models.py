@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 from odoo import models, fields, api
 
+
 def name_generator(self):
     letters = list(string.ascii_lowercase)
     first = list(string.ascii_uppercase)
@@ -64,12 +65,21 @@ class barco(models.Model):
 
     name = fields.Char(default=name_generator)
     photo = fields.Image(max_width=150, max_heigth=150)
+    vida = fields.Integer(default=50)
+    activo = fields.Boolean(default=True)
+    velocidad = fields.Integer(default=0)
+    defensa = fields.Integer(default=0)
+    ataque = fields.Integer(default=0)
+    level = fields.Integer(default=0)
+
     player = fields.Many2one('res.partner')
     isla = fields.Many2one('game.isla')
-    activo = fields.Boolean(default=True)
+
+    photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
+    photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
-
+'''
 class tipo_barco(models.Model):
     _name = 'game.tipo_barco'
     _description = 'Tipos de barcos'
@@ -79,7 +89,6 @@ class tipo_barco(models.Model):
     resistencia = fields.Integer(default=0)
     ataque = fields.Integer(default=0)
 
-    '''
     time = fields.Float(default=10)
     required_buildings = fields.Many2many('terraform.building_type', relation='required_buildings_many2many',
                                           column1='building', column2='required')
@@ -89,9 +98,7 @@ class tipo_barco(models.Model):
                                               '"min_water":"1",'
                                               '"min_gravity":"1","max_gravity":"20",'
                                               '"min_air":"0.1","max_air":"10"}')
-    '''
 
-    '''
         def barco(self):
         for b in self:
             print(self.env.context.get('isla'))
@@ -99,8 +106,7 @@ class tipo_barco(models.Model):
                 'planet': self.env.context.get('planet'),
                 'building_type': b.id,
             })
-    '''
-
+'''
 
 
 
@@ -354,6 +360,11 @@ class challenge(models.Model):
                 'domain': {'isla_2': [('player', '=', self.player_2.id)],
                            'player_1': [('id', '!=', self.player_2.id)]},
         }
+
+    @api.onchange('target_goal')
+    def _onchange_goal(self):
+        if self.target_goal < 0:
+            self.target_goal = 0
 
     @api.model
     def calcularCombates(self):

@@ -50,15 +50,19 @@
                                 <field name="isla_2_image" widget="image" nolabel="1"
                                        attrs="{'invisible':[('isla_2', '==', False)]}"/>
                             </group>
+                            <!--
                             <group string="Ganador" col="4">
                                 <field name="winner"/>
                             </group>
+                            -->
                         </group>
+                        <footer>
+                            <button name="calcularCombates" type="object"
+                                    string="Calcular" class="oe_highlight"/>
+                        </footer>
                     </sheet>
                 </form>
             </field>
         </record>
-
-
     </data>
 </odoo>

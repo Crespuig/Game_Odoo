@@ -11,7 +11,6 @@
                     <field name="player"/>
                     <field name="isla"/>
                     <field name="vida"/>
-                    <field name="activo"/>
                     <field name="velocidad"/>
                     <field name="defensa"/>
                     <field name="ataque"/>
@@ -35,7 +34,6 @@
                                 <field name="vida"/>
                             </group>
                             <group>
-                                <field name="activo"/>
                                 <field name="velocidad"/>
                                 <field name="defensa"/>
                                 <field name="ataque"/>

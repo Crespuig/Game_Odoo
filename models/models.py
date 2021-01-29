@@ -66,9 +66,9 @@ class barco(models.Model):
     name = fields.Char(default=name_generator)
     photo = fields.Image(max_width=150, max_heigth=150)
     vida = fields.Integer(default=50, readonly=True)
-    velocidad = fields.Integer(default=25, readonly=True)
-    defensa = fields.Integer(default=25, readonly=True)
-    ataque = fields.Integer(default=25, readonly=True)
+    velocidad = fields.Integer(default=random.randint(10, 25), readonly=True)
+    defensa = fields.Integer(default=random.randint(10, 25), readonly=True)
+    ataque = fields.Integer(default=random.randint(10, 25), readonly=True)
     level = fields.Integer(default=1, readonly=True)
 
     player = fields.Many2one('res.partner')
@@ -387,3 +387,10 @@ class challenge(models.Model):
 
 #si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas
 #de un archipielago si otro intenta entrar se crea una guerra con toda la flota, el que gane se queda con todas las islas
+'''
+planet
+action server
+change planets server action
+state code
+
+'''

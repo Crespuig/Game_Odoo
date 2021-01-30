@@ -308,13 +308,14 @@ class challenge(models.Model):
     # Main fields
     player = fields.Many2one('res.partner', readonly=True)
     nombre = fields.Char()
-    start_date = fields.Datetime(default=fields.Datetime.now)
-    end_date = fields.Datetime(default=lambda d: fields.Datetime.to_string(datetime.now()+timedelta(hours=48)))
+
     finished = fields.Boolean(default=False)
     player_1 = fields.Many2one('res.partner', required=True, ondelete='restrict')
     player_2 = fields.Many2one('res.partner', required=True, ondelete='restrict')
     isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
+    barco_1 = fields.Many2one('game.barco', required= True, ondelete='restrict')
+    barco_2 = fields.Many2one('game.barco', required=True, ondelete='restrict')
     ### Challenge objective
     recurso = fields.Selection([('madera','Madera'),('bronce','Bronce'),('hirro','Hierro'),('plata','Plata'),('oro','Oro'),('adamantium','Adamantium')])
     target_goal = fields.Float()
@@ -326,6 +327,8 @@ class challenge(models.Model):
     player_2_avatar = fields.Image(related='player_2.photo')
     isla_1_image = fields.Image(related='isla_1.photo')
     isla_2_image = fields.Image(related='isla_2.photo')
+    barco_1_image = fields.Image(related='barco_1.photo')
+    barco_2_image = fields.Image(related='barco_2.photo')
 
     @api.onchange('player_1')
     def _onchange_player1(self):
@@ -366,10 +369,41 @@ class challenge(models.Model):
 
     @api.model
     def calcularCombates(self):
-        combates = self.search([('finished','=',False)]).filtered(lambda c: c.end_date < fields.Datetime.now())
+        combates = self.search([('finished','=',False)])
         for c in combates:
             isla1 = c.isla_1
+            barco1 = c.barco_1
+            ataque1 = c.barco_1
+            defensa1 = c.barco_1
+            vida1 = c.barco_1
+
             isla2 = c.isla_2
+            barco2 = c.barco_2
+            ataque2 = c.barco_2
+            defensa2 = c.barco_2
+            vida2 = c.barco_2
+
+            turno = 1
+
+            while vida1 > 0 & vida2 > 0:
+                if turno == 1:
+                    vida2 = vida2 - ((ataque1 + 10) - defensa2)
+                    print(c, vida2)
+                    turno = 0
+                if turno == 0:
+                    vida1 = vida1 - ((ataque2 + 10) - defensa1)
+                    print(c, vida1)
+                    turno = 1
+
+            if vida1 <= 0:
+                winner = barco2.player.id
+            else:
+                winner = barco1.player.id
+            c.write({'finished': True, 'winner': winner})
+            print("Combate finalizado")
+
+
+            '''
             goal = c.target_goal
             parameter = c.recurso
             print(c, isla1, isla2)
@@ -382,7 +416,7 @@ class challenge(models.Model):
                 winner = isla2.player.id
             c.write({'finished':True,'winner':winner})
             print("Combate finalizado")
-
+            '''
 
 #si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas
 #de un archipielago si otro intenta entrar se crea una guerra con toda la flota, el que gane se queda con todas las islas

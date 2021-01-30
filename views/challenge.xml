@@ -9,10 +9,10 @@
                     <field name="nombre"></field>
                     <field name="player_1"></field>
                     <field name="isla_1"></field>
+                    <field name="barco_1"></field>
                     <field name="player_2"></field>
                     <field name="isla_2"></field>
-                    <field name="start_date"></field>
-                    <field name="end_date"></field>
+                    <field name="barco_2"></field>
                     <field name="winner"></field>
                 </tree>
             </field>
@@ -41,14 +41,20 @@
                                 <field name="isla_1"/>
                                 <field name="isla_1_image" widget="image" nolabel="1"
                                        attrs="{'invisible':[('isla_1', '==', False)]}"/>
+                                <field name="barco_1"/>
+                                <field name="barco_1_image" widget="image" nolabel="1"
+                                       attrs="{'invisible':[('barco_1', '==', False)]}"/>
                             </group>
-                            <group string="Jugador 2" col="4">
+                            <group>
                                 <field name="player_2"/>
                                 <field name="player_2_avatar" widget="image" nolabel="1"
                                        attrs="{'invisible':[('player_2', '==', False)]}"/>
                                 <field name="isla_2"/>
                                 <field name="isla_2_image" widget="image" nolabel="1"
                                        attrs="{'invisible':[('isla_2', '==', False)]}"/>
+                                <field name="barco_2"/>
+                                <field name="barco_2_image" widget="image" nolabel="1"
+                                       attrs="{'invisible':[('barco_2', '==', False)]}"/>
                             </group>
                             <!--
                             <group string="Ganador" col="4">
@@ -58,7 +64,7 @@
                         </group>
                         <footer>
                             <button name="calcularCombates" type="object"
-                                    string="Calcular" class="oe_highlight"/>
+                                    string="Calcular combate" class="oe_highlight"/>
                         </footer>
                     </sheet>
                 </form>

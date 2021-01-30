@@ -20,6 +20,8 @@ class wizard_challenge(models.TransientModel):
     player_2 = fields.Many2one('res.partner', ondelete='restrict', domain="[('is_player', '=', True)]")
     isla_1 = fields.Many2one('game.isla', ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', ondelete='restrict')
+    barco_1 = fields.Many2one('game.barco', ondelete='restrict')
+    barco_2 = fields.Many2one('game.barco', ondelete='restrict')
     ### Challenge objective
     recurso = fields.Selection(
         [('madera', 'Madera'), ('bronce', 'Bronce'), ('hirro', 'Hierro'), ('plata', 'Plata'), ('oro', 'Oro'),
@@ -32,6 +34,8 @@ class wizard_challenge(models.TransientModel):
     player_2_avatar = fields.Image(related='player_2.photo')
     isla_1_image = fields.Image(related='isla_1.photo')
     isla_2_image = fields.Image(related='isla_2.photo')
+    barco_1_image = fields.Image(related='barco_1.photo')
+    barco_2_image = fields.Image(related='barco_2.photo')
 
     state = fields.Selection([('global', 'Global'),
                               ('jugadores', 'Jugadores')],
@@ -43,7 +47,9 @@ class wizard_challenge(models.TransientModel):
             'player_1': self.player_1.id,
             'player_2': self.player_2.id,
             'isla_1': self.isla_1.id,
-            'isla_2': self.isla_2.id
+            'isla_2': self.isla_2.id,
+            'barco_1': self.barco_1.id,
+            'barco_2': self.barco_2.id
         })
 
         return {

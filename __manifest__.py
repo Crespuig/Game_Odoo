@@ -25,14 +25,14 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'views/wizard_challenge.xml',
         'views/player.xml',
-        'views/archipielago.xml',
         'views/wizard_isla.xml',
+        'views/archipielago.xml',
         'views/isla.xml',
         'views/barco.xml',
         'views/viaje.xml',
         'views/challenge.xml',
-        'views/wizard_challenge.xml',
         'views/actions.xml',
         'views/menus.xml',
         'views/templates.xml',

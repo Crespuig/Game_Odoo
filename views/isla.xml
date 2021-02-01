@@ -1,6 +1,6 @@
 <odoo>
     <data>
-<!--TREE FORM ISLA -->
+        <!--TREE FORM ISLA -->
         <record model="ir.ui.view" id="game.isla_tree">
             <field name="name">Isla</field>
             <field name="model">game.isla</field>
@@ -49,7 +49,6 @@
         </record>
 
 
-
         <record model="ir.ui.view" id="game.isla_search">
             <field name="name">Isla</field>
             <field name="model">game.isla</field>
@@ -82,6 +81,16 @@
                     <filter name="adamantium" string="Adamantium = 500 o más"
                             domain="[('adamantium','>','500')]"></filter>
                 </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="game.cambios_islas_action">
+            <field name="name">Cambios Islas Server Action</field>
+            <field name="model_id" ref="model_game_isla"/>
+            <field name="binding_model_id" ref="model_game_isla"/>
+            <field name="state">code</field>
+            <field name="code">
+                action=model.cambios_islas()
             </field>
         </record>
     </data>

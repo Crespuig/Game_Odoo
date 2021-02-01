@@ -181,6 +181,11 @@ class isla(models.Model):
         islas.calculate_production()
         print("Recurso actualizado")
 
+    def cambios_islas(self):
+        records = self.browse(self.env.context.get('active_ids'))
+        for p in records:
+            p.write({'madera': 1000})
+
 
 class archipielago(models.Model):
     _name = "game.archipielago"

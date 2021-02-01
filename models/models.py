@@ -186,6 +186,17 @@ class isla(models.Model):
         for p in records:
             p.write({'madera': 1000})
 
+    def open_player(self):
+        for b in self:
+            if b.player:
+                return {
+                    "type": "ir.actions.act_window",
+                    "res_model": "res.partner",
+                    "views": [[self.env.ref('game.player_form').id, "form"]],
+                    "res_id": b.player.id,
+                    "target": "new"
+                }
+
 
 class archipielago(models.Model):
     _name = "game.archipielago"
@@ -372,7 +383,7 @@ class challenge(models.Model):
         if self.target_goal < 0:
             self.target_goal = 0
 
-    #@api.model
+    @api.model
     def calcularCombates(self):
         combates = self.search([('finished','=',False)])
         for c in combates:
@@ -413,10 +424,4 @@ class challenge(models.Model):
 
 #si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas
 #de un archipielago si otro intenta entrar se crea una guerra con toda la flota, el que gane se queda con todas las islas
-'''
-planet
-action server
-change planets server action
-state code
 
-'''

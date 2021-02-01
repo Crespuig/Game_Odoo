@@ -12,19 +12,19 @@
             <field name="activity_user_type">specific</field>
             <field name="doall" eval="False"/>
         </record>
-        <!--
+
         <record model="ir.cron" forcecreate="True" id="game.cron_combates">
             <field name="name">Game: Cron Combates</field>
             <field name="model_id" ref="model_game_challenge"/>
             <field name="state">code</field>
             <field name="code">model.calcularCombates()</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="interval_number">15</field>
+            <field name="interval_number">1</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="activity_user_type">specific</field>
             <field name="doall" eval="False"/>
         </record>
-        -->
+
     </data>
 </odoo>

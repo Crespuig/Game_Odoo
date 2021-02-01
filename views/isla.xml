@@ -43,6 +43,9 @@
                                 <field name="player"/>
                             </group>
                         </group>
+                        <footer>
+                            <button type="object" name="open_player" string="Open Player"></button>
+                        </footer>
                     </sheet>
                 </form>
             </field>

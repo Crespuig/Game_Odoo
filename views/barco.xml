@@ -42,5 +42,34 @@
                 </form>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="game.barco_search">
+            <field name="name">Barco</field>
+            <field name="model">game.barco</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="level" string="Level" filter_domain="[('level','>',self)]"/>
+                    <field name="vida" string="madera" filter_domain="[('madera','>',self)]"/>
+                    <field name="ataque" string="bronce" filter_domain="[('bronce','>',self)]"/>
+                    <field name="defensa" string="hierro" filter_domain="[('hierro','>',self)]"/>
+
+                    <filter name="maxLevel" string="Nivel máximo" domain="[('level','>','99')]"></filter>
+                    <filter name="group_by_barco" string="Agrupar por nivel"
+                            context="{'group_by': 'level'}"></filter>
+                    <filter name="de0A5" string="Nivel 0 a 5"
+                            domain="[('level','>=','0'),('level','&lt;=','5')]"></filter>
+                    <filter name="de6A10" string="Nivel 6 a 10"
+                            domain="[('level','>=','6'),('level','&lt;=','10')]"></filter>
+                    <filter name="de11A15" string="Nivel 11 a 15"
+                            domain="[('level','>=','11'),('level','&lt;=','15')]"></filter>
+                    <filter name="de16A20" string="Nivel 16 a 20"
+                            domain="[('level','>=','16'),('level','&lt;=','20')]"></filter>
+                    <filter name="vida" string="Vida = 60 o más" domain="[('vida','>','60')]"></filter>
+                    <filter name="ataque" string="Ataque = 20 o más" domain="[('ataque','>','20')]"></filter>
+                    <filter name="defemsa" string="Defensa = 20 o más" domain="[('defensa','>','20')]"></filter>
+                </search>
+            </field>
+        </record>
     </data>
 </odoo>

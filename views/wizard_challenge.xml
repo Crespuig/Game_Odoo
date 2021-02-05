@@ -20,7 +20,7 @@
                     <sheet>
                         <group states="jugadores" string="Jugadores">
                             <group string="Jugador 1" col="4">
-                                <field name="player_1"/>
+                                <field name="player_1" domain="[('is_player','=',True)]"/>
                                 <field name="player_1_avatar" widget="image" nolabel="1"
                                        attrs="{'invisible':[('player_1', '==', False)]}"/>
                                 <field name="isla_1"/>
@@ -31,7 +31,7 @@
                                        attrs="{'invisible':[('barco_1', '==', False)]}"/>
                             </group>
                             <group string="Jugador 2" col="4">
-                                <field name="player_2"/>
+                                <field name="player_2" domain="[('is_player','=',True)]"/>
                                 <field name="player_2_avatar" widget="image" nolabel="1"
                                        attrs="{'invisible':[('player_2', '==', False)]}"/>
                                 <field name="isla_2"/>

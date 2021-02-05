@@ -101,7 +101,7 @@ class isla(models.Model):
     pos_x = fields.Integer(default=lambda self: self.random_generator(-100, 100))
     pos_y = fields.Integer(default=lambda self: self.random_generator(-100, 100))
 
-    player = fields.Many2one('res.partner', readonly=True)
+    player = fields.Many2one('res.partner')
     archipielago = fields.Many2one('game.archipielago', ondelete='cascade', required=True)
 
     barcos = fields.One2many('game.barco', 'isla')
@@ -398,6 +398,8 @@ class challenge(models.Model):
                 winner = barco2.player.id
                 nameWinner = barco2.player.name
                 playerUpgradeLevel = barco2.player.level = barco2.player.level + 1
+                if (barco2.player.level > 100):
+                    barco2.player.level = 100
                 barcoUpgradeVida = c.barco_2.vida = vidaInicial2 + (random.randint(1, 5))
                 barcoUpgradeAtaque = c.barco_2.ataque = ataque2 + (random.randint(1,5))
                 barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1,5))
@@ -406,6 +408,9 @@ class challenge(models.Model):
                 winner = barco1.player.id
                 nameWinner = barco1.player.name
                 playerUpgradeLevel = barco1.player.level = barco1.player.level + 1
+                if(barco1.player.level > 100):
+                    barco1.player.level = 100
+
                 barcoUpgradeVida = c.barco_1.vida = vidaInicial1 + (random.randint(1, 5))
                 barcoUpgradeAtaque = c.barco_1.ataque = ataque1 + (random.randint(1, 5))
                 barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))

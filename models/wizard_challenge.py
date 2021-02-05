@@ -23,11 +23,7 @@ class wizard_challenge(models.TransientModel):
     barco_1 = fields.Many2one('game.barco', ondelete='restrict')
     barco_2 = fields.Many2one('game.barco', ondelete='restrict')
     ### Challenge objective
-    recurso = fields.Selection(
-        [('madera', 'Madera'), ('bronce', 'Bronce'), ('hirro', 'Hierro'), ('plata', 'Plata'), ('oro', 'Oro'),
-         ('adamantium', 'Adamantium')], required=True)
     target_goal = fields.Float()
-    cantidad = fields.Float(required=True)
     # winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
 
     player_1_avatar = fields.Image(related='player_1.photo')

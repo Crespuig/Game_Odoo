@@ -13,10 +13,6 @@
                             <group>
                                 <field name="nombre"/>
                             </group>
-                            <group>
-                                <field name="recurso"/>
-                                <field name="cantidad"/>
-                            </group>
                         </group>
 
 

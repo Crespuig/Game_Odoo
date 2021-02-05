@@ -69,6 +69,7 @@ class barco(models.Model):
     defensa = fields.Integer(default=random.randint(10, 25), readonly=True)
     ataque = fields.Integer(default=random.randint(10, 25), readonly=True)
     level = fields.Integer(default=1, readonly=True)
+    #esquivar = fields.Integer(default=random.randint(0, 20))
 
     player = fields.Many2one('res.partner')
     isla = fields.Many2one('game.isla')
@@ -77,35 +78,6 @@ class barco(models.Model):
     photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
-'''
-class tipo_barco(models.Model):
-    _name = 'game.tipo_barco'
-    _description = 'Tipos de barcos'
-
-    name = fields.Char()
-    velocidad = fields.Integer(default=0)
-    resistencia = fields.Integer(default=0)
-    ataque = fields.Integer(default=0)
-
-    time = fields.Float(default=10)
-    required_buildings = fields.Many2many('terraform.building_type', relation='required_buildings_many2many',
-                                          column1='building', column2='required')
-    required_enviroment = fields.Char(default='{"min_temp":"-20", "max_temp":"60",'
-                                              '"min_oxigen":"50",'
-                                              '"min_co2":"50",'
-                                              '"min_water":"1",'
-                                              '"min_gravity":"1","max_gravity":"20",'
-                                              '"min_air":"0.1","max_air":"10"}')
-
-        def barco(self):
-        for b in self:
-            print(self.env.context.get('isla'))
-            construction = self.env['terraform.construction'].create({
-                'planet': self.env.context.get('planet'),
-                'building_type': b.id,
-            })
-'''
-
 
 
 class isla(models.Model):
@@ -333,9 +305,7 @@ class challenge(models.Model):
     barco_1 = fields.Many2one('game.barco', required= True, ondelete='restrict')
     barco_2 = fields.Many2one('game.barco', required=True, ondelete='restrict')
     ### Challenge objective
-    recurso = fields.Selection([('madera','Madera'),('bronce','Bronce'),('hirro','Hierro'),('plata','Plata'),('oro','Oro'),('adamantium','Adamantium')])
-    target_goal = fields.Float()
-    cantidad = fields.Float()
+    playerUpgradeLevel = fields.Many2one('res.partner')
     winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
 
 
@@ -359,7 +329,8 @@ class challenge(models.Model):
                 }
         return {
                 'domain': {'isla_1': [('player', '=', self.player_1.id)],
-                           'player_2': [('id', '!=', self.player_1.id)]},
+                           'player_2': [('id', '!=', self.player_1.id)],
+                           'barco_1': [('player', '=', self.player_1.id)]},
         }
 
     @api.onchange('player_2')
@@ -375,7 +346,8 @@ class challenge(models.Model):
                 }
         return {
                 'domain': {'isla_2': [('player', '=', self.player_2.id)],
-                           'player_1': [('id', '!=', self.player_2.id)]},
+                           'player_1': [('id', '!=', self.player_2.id)],
+                           'barco_2': [('player', '=', self.player_2.id)]},
         }
 
     @api.onchange('target_goal')
@@ -384,41 +356,65 @@ class challenge(models.Model):
             self.target_goal = 0
 
     @api.model
+    def calcularCombatesCron(self):
+        self.calcularCombates()
+
     def calcularCombates(self):
         combates = self.search([('finished','=',False)])
         for c in combates:
-            isla1 = c.isla_1
             barco1 = c.barco_1
             ataque1 = c.barco_1.ataque
             defensa1 = c.barco_1.defensa
             vida1 = c.barco_1.vida
+            vidaInicial1 = c.barco_1.vida
+            level1 = c.barco_1.level
 
-            isla2 = c.isla_2
             barco2 = c.barco_2
             ataque2 = c.barco_2.ataque
             defensa2 = c.barco_2.defensa
             vida2 = c.barco_2.vida
+            vidaInicial2 = c.barco_2.vida
+            level2 = c.barco_2.level
 
             turno = 1
 
             while vida1 > 0 and vida2 > 0:
                 if turno == 1:
-                    vida2 = vida2 - ((ataque1 + 10) - defensa2)
-                    print(c, vida2)
+                    if(random.randint(0, 100) > 20):
+                        vida2 = vida2 - ((ataque1 + 10) - defensa2)
+                        print(barco2.name, vida2)
+                    else:
+                        print("esquivado")
                     turno = 0
                 if turno == 0:
-                    vida1 = vida1 - ((ataque2 + 10) - defensa1)
-                    print(c, vida1)
+                    if (random.randint(0, 100) > 20):
+                        vida1 = vida1 - ((ataque2 + 10) - defensa1)
+                        print(barco1.name, vida1)
+                    else:
+                        print("esquivado")
                     turno = 1
 
             if vida1 <= 0:
                 winner = barco2.player.id
                 nameWinner = barco2.player.name
+                playerUpgradeLevel = barco2.player.level = barco2.player.level + 1
+                barcoUpgradeVida = c.barco_2.vida = vidaInicial2 + (random.randint(1, 5))
+                barcoUpgradeAtaque = c.barco_2.ataque = ataque2 + (random.randint(1,5))
+                barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1,5))
+                barcoUpgradeLevel = c.barco_2.level = level2 + (random.randint(1,5))
             else:
                 winner = barco1.player.id
                 nameWinner = barco1.player.name
+                playerUpgradeLevel = barco1.player.level = barco1.player.level + 1
+                barcoUpgradeVida = c.barco_1.vida = vidaInicial1 + (random.randint(1, 5))
+                barcoUpgradeAtaque = c.barco_1.ataque = ataque1 + (random.randint(1, 5))
+                barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))
+                barcoUpgradeLevel = c.barco_1.level = level1 + (random.randint(1, 5))
+
             c.write({'finished': True, 'winner': winner})
             print("Ganador: " + nameWinner)
+            print("Level " + nameWinner + " + " + str(playerUpgradeLevel))
+            print(barcoUpgradeVida, barcoUpgradeAtaque, barcoUpgradeDefensa, barcoUpgradeLevel)
             print("Combate finalizado")
 
 

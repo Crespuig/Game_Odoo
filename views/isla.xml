@@ -20,6 +20,28 @@
                 </tree>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="game.isla_changes_graph">
+            <field name="name">Cambios graph</field>
+            <field name="model">game.cambios_isla</field>
+            <field name="arch" type="xml">
+                <graph string="Cambios isla" type="line">
+                    <field name="time" type="row"/>
+                    <field name="isla" type="col"/>
+                    <field name="madera" type="measure"/>
+                </graph>
+
+            </field>
+        </record>
+        <act_window
+                id="game.launch_cambios_isla_graph"
+                name="Launch cambios isla graph"
+                res_model="game.cambios_isla"
+                view_mode="graph"
+                target="new"
+                domain="[('isla','=',active_id)]"
+        />
+
         <record model="ir.ui.view" id="game.isla_form">
             <field name="name">Isla</field>
             <field name="model">game.isla</field>
@@ -42,6 +64,19 @@
                                 <field name="archipielago"/>
                                 <field name="player"/>
                             </group>
+                            <notebook>
+                                <page string="Cambios isla">
+                                    <field name="cambios_isla">
+                                        <tree>
+                                            <field name="time"/>
+                                            <field name="isla"/>
+                                            <field name="madera"/>
+                                        </tree>
+                                    </field>
+                                    <button name="%(game.launch_cambios_isla_graph)d" type="action" string="Show Graph"
+                                            class="oe_highlight"></button>
+                                </page>
+                            </notebook>
                         </group>
                         <footer>
                             <button type="object" name="open_player" string="Open Player"></button>

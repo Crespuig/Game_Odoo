@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import math
 import random
 import string
 from datetime import datetime, timedelta
@@ -88,6 +89,7 @@ class isla(models.Model):
     name = fields.Char(default=name_generator)
     level = fields.Integer(default=random.randint(1, 100))
     n_isla = fields.Integer()
+    cambios_isla = fields.One2many('game.cambios_isla', 'isla')
     #construction_buildings = fields.Many2many('game.construccion', compute='_get_barcos_disponibles')
 
     #Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
@@ -118,7 +120,7 @@ class isla(models.Model):
 
     def calculate_production(self):
         for p in self:
-            #date = fields.Datetime.now()
+            date = fields.Datetime.now()
 
             if p.player:
 
@@ -145,6 +147,14 @@ class isla(models.Model):
                     'oro': final_oro,
                     'adamantium': final_adamantium
                 })
+
+                if p.player:
+                    cambios_isla = p.env['game.cambios_isla'].create(
+                        {'isla': p.id, 'time': date, 'name': p.name + " " + str(date)})
+
+                    cambios_isla.write({
+                        'madera': p.madera
+                    })
 
 
     @api.model
@@ -198,7 +208,7 @@ class viaje(models.Model):
 
     origen_isla = fields.Many2one('game.isla')
     destino_isla = fields.Many2one('game.isla')
-    duracion_viaje = fields.Integer(deafult=0, compute='_get_duracion_viaje')
+    duracion_viaje = fields.Integer(default=0, compute='_get_duracion_viaje')
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]

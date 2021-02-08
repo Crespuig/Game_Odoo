@@ -76,8 +76,8 @@
                     <field name="finished" string="Finalizado" domain="[('finished','=',True)]"/>
                     <field name="finished" string="No finalizado" domain="[('finished','=',False)]"/>
 
-                    <filter name="finished" string="Finalizado" domain="[('finished','=',True)]"></filter>
-                    <filter name="finished" string="No finalizado" domain="[('finished','=',False)]"></filter>
+                    <filter name="finished_true" string="Finalizado" domain="[('finished','=',True)]"></filter>
+                    <filter name="finished_false" string="No finalizado" domain="[('finished','=',False)]"></filter>
                 </search>
             </field>
         </record>

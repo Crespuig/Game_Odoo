@@ -38,6 +38,10 @@
             <field name="name">challenges</field>
             <field name="res_model">game.challenge</field>
             <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{'default_finished_false': False, 'search_default_finished_false': 1}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('game.challenge_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('game.challenge_form')}),]"/>
         </record>
     </data>
 </odoo>

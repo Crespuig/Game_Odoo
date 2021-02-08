@@ -153,9 +153,18 @@ class isla(models.Model):
                         {'isla': p.id, 'time': date, 'name': p.name + " " + str(date)})
 
                     cambios_isla.write({
-                        'madera': p.madera
+                        'madera': p.madera,
+                        'bronce': p.bronce,
+                        'hierro': p.hierro,
+                        'plata': p.plata,
+                        'oro': p.oro,
+                        'adamantium': p.adamantium
                     })
 
+                    if len(self.env['game.cambios_isla'].search([('isla', '=', p.id)])) > 100:
+                        n = len(self.env['game.cambios_isla'].search([('isla', '=', p.id)])) - 100
+                        eliminar = self.env['game.cambios_isla'].search([('isla', '=', p.id)], limit=n)
+                        eliminar.unlink()
 
     @api.model
     def update_resources(self):

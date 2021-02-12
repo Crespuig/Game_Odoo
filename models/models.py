@@ -3,6 +3,7 @@ import math
 import random
 import string
 from datetime import datetime, timedelta
+from typing import List, Tuple
 
 from odoo import models, fields, api
 
@@ -10,11 +11,12 @@ from odoo import models, fields, api
 def name_generator(self):
     letters = list(string.ascii_lowercase)
     first = list(string.ascii_uppercase)
-    vocals = ['a','e','i','o','u','y','']
+    vocals = ['a', 'e', 'i', 'o', 'u', 'y', '']
     name = random.choice(first)
-    for i in range(0,random.randint(3,5)):
-        name = name+random.choice(letters)+random.choice(vocals)
+    for i in range(0, random.randint(3, 5)):
+        name = name + random.choice(letters) + random.choice(vocals)
     return name
+
 
 def image_generator(self):
     images = self.env['game.template'].search([]).mapped('photo')
@@ -28,7 +30,7 @@ class player(models.Model):
     _name = 'res.partner'
     _description = 'Jugador'
 
-    #name = fields.Char(default=name_generator)
+    # name = fields.Char(default=name_generator)
     is_player = fields.Boolean(default=True)
     is_premium = fields.Boolean(default=False)
     photo = fields.Image(max_width=150, max_heigth=150)
@@ -46,9 +48,8 @@ class player(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
-    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
-
-
+    _sql_constraints: List[Tuple[str, str, str]] = [
+        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     '''def assign_random_isla(self):
         for p in self:
@@ -70,7 +71,7 @@ class barco(models.Model):
     defensa = fields.Integer(default=random.randint(10, 25), readonly=True)
     ataque = fields.Integer(default=random.randint(10, 25), readonly=True)
     level = fields.Integer(default=1, readonly=True)
-    #esquivar = fields.Integer(default=random.randint(0, 20))
+    # esquivar = fields.Integer(default=random.randint(0, 20))
 
     player = fields.Many2one('res.partner')
     isla = fields.Many2one('game.isla')
@@ -78,18 +79,23 @@ class barco(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=200, max_heigth=200, related='photo', store=True)
 
-    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    _sql_constraints: List[Tuple[str, str, str]] = [
+        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     def consume_recursos(self):
-        barco.isla.madera = barco.isla.madera - random.randint(150, 200)
-        barco.isla.bronce = barco.isla.bronce - random.randint(100, 150)
-        barco.isla.hierro = barco.isla.hierro - random.randint(50, 100)
-        barco.isla.plata = barco.isla.plata - random.randint(25, 50)
-        barco.isla.oro = barco.isla.oro - random.randint(10, 25)
-        barco.isla.adamantium = barco.isla.adamantium - random.randint(1, 10)
+        isla = self.isla
+        for c in isla:
+            consume_madera = c.isla.madera - random.randint(150, 200)
+            consume_bronce = c.isla.bronce - random.randint(100, 150)
+            consume_hierro = c.isla.hierro - random.randint(50, 100)
+            consume_plata = c.isla.plata - random.randint(25, 50)
+            consume_oro = c.isla.oro - random.randint(10, 25)
+            consume_adamantium = c.isla.adamantium - random.randint(1, 10)
 
-        self.write({'barco.isla.madera': barco.isla.madera, 'barco.isla.bronce': barco.isla.bronce, 'barco.isla.hierro': barco.isla.hierro,
-                    'barco.isla.plata': barco.isla.plata, 'barco.isla.oro': barco.isla.oro, 'barco.isla.adamantium': barco.isla.adamantium,})
+        # self.write({'barco.isla.madera': barco.isla.madera, 'barco.isla.bronce': barco.isla.bronce, 'barco.isla.hierro': barco.isla.hierro,
+        #           'barco.isla.plata': barco.isla.plata, 'barco.isla.oro': barco.isla.oro, 'barco.isla.adamantium': barco.isla.adamantium,})
+
+        print(consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro, consume_adamantium)
 
         print("------------- Recursos consumidos -------------")
 
@@ -108,8 +114,6 @@ class barco(models.Model):
 '''
 
 
-
-
 class isla(models.Model):
     _name = "game.isla"
     _description = "Isla"
@@ -119,10 +123,10 @@ class isla(models.Model):
     level = fields.Integer(default=random.randint(1, 100))
     n_isla = fields.Integer()
     cambios_isla = fields.One2many('game.cambios_isla', 'isla')
-    #construction_buildings = fields.Many2many('game.construccion', compute='_get_barcos_disponibles')
+    # construction_buildings = fields.Many2many('game.construccion', compute='_get_barcos_disponibles')
 
-    #Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
-    #depende del nivel de la isla tendra unso recursos o otros
+    # Recursos por defecto, cada dia se reinician, depende de los dias que estes tendras mas recursos
+    # depende del nivel de la isla tendra unso recursos o otros
     madera = fields.Integer(default=random.randint(500, 800))
     bronce = fields.Integer(default=random.randint(400, 700))
     hierro = fields.Integer(default=random.randint(300, 600))
@@ -144,8 +148,8 @@ class isla(models.Model):
     def random_generator(self, a, b):
         return random.randint(a, b)
 
-    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
-
+    _sql_constraints: List[Tuple[str, str, str]] = [
+        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     def calculate_production(self):
         for p in self:
@@ -166,7 +170,6 @@ class isla(models.Model):
                 final_plata = p.plata + new_plata
                 final_oro = p.oro + new_oro
                 final_adamantium = p.adamantium + new_adamantium
-
 
                 p.write({
                     'madera': final_madera,
@@ -236,7 +239,9 @@ class archipielago(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
 
-    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    _sql_constraints: List[Tuple[str, str, str]] = [
+        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+
 
 class viaje(models.Model):
     _name = "game.viaje"
@@ -251,10 +256,11 @@ class viaje(models.Model):
 
     origen_isla = fields.Many2one('game.isla')
     destino_isla = fields.Many2one('game.isla')
-    duracion_viaje = fields.Integer(compute='_get_duracion_viaje') #store true
+    duracion_viaje = fields.Integer(compute='_get_duracion_viaje')  # store true
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
 
-    #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    _sql_constraints: List[Tuple[str, str, str]] = [
+        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     @api.depends('origen_isla', 'destino_isla', 'player')
     def _get_viaje_name(self):
@@ -268,10 +274,11 @@ class viaje(models.Model):
     def _get_duracion_viaje(self):
         for t in self:
             t.duracion_viaje = ((((t.destino_isla.pos_x - t.origen_isla.pos_x) ** 2) + (
-                        (t.destino_isla.pos_y - t.origen_isla.pos_y) ** 2)) ** 0.5)
+                    (t.destino_isla.pos_y - t.origen_isla.pos_y) ** 2)) ** 0.5)
 
             if t.duracion_viaje < 100:
                 t.duracion_viaje = 100
+
 
 class viaje_wizard(models.TransientModel):
     _name = 'game.viaje_wizard'
@@ -279,12 +286,13 @@ class viaje_wizard(models.TransientModel):
     def _default_player(self):
         return self.env['res.partner'].browse(self._context.get('active_id'))  # El context conté, entre altre coses,
         # el active_id del model que està obert.
-    player = fields.Many2one('res.partner', required=True, default=_default_player , domain="[('is_player', '=', True)]", readonly=True)
+
+    player = fields.Many2one('res.partner', required=True, default=_default_player, domain="[('is_player', '=', True)]",
+                             readonly=True)
     origen_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
     destino_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
 
-
-    #distance = fields.Float(compute='_get_distance')  # Distancia en temps
+    # distance = fields.Float(compute='_get_distance')  # Distancia en temps
 
     @api.onchange('player')
     def onchange_player(self):
@@ -309,7 +317,6 @@ class viaje_wizard(models.TransientModel):
                 t.distance = 0
     '''
 
-
     def crear_viaje(self):
         viaje = self.env['game.viaje'].create({
             'player': self.player.id,
@@ -328,6 +335,7 @@ class viaje_wizard(models.TransientModel):
             'target': 'current',
         }
 
+
 class levels(models.Model):
     _name = 'game.levels'
 
@@ -343,6 +351,7 @@ class template(models.Model):
     name = fields.Char()
     photo = fields.Image()
 
+
 class challenge(models.Model):
     _name = 'game.challenge'
     _description = 'Player challenges'
@@ -355,12 +364,11 @@ class challenge(models.Model):
     player_2 = fields.Many2one('res.partner', required=True, ondelete='restrict')
     isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
-    barco_1 = fields.Many2one('game.barco', required= True, ondelete='restrict')
+    barco_1 = fields.Many2one('game.barco', required=True, ondelete='restrict')
     barco_2 = fields.Many2one('game.barco', required=True, ondelete='restrict')
     ### Challenge objective
     playerUpgradeLevel = fields.Many2one('res.partner')
     winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
-
 
     player_1_avatar = fields.Image(related='player_1.photo')
     player_2_avatar = fields.Image(related='player_2.photo')
@@ -369,6 +377,9 @@ class challenge(models.Model):
     barco_1_image = fields.Image(related='barco_1.photo')
     barco_2_image = fields.Image(related='barco_2.photo')
 
+    _sql_constraints: List[Tuple[str, str, str]] = [
+        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+
     @api.onchange('player_1')
     def _onchange_player1(self):
         if self.player_2:
@@ -376,14 +387,14 @@ class challenge(models.Model):
                 self.player_1 = False
                 return {
                     'warning': {
-                                   'title': "Players must be different",
-                                   'message': "Player 1 is the same as Player 2",
-                               }
+                        'title': "Players must be different",
+                        'message': "Player 1 is the same as Player 2",
+                    }
                 }
         return {
-                'domain': {'isla_1': [('player', '=', self.player_1.id)],
-                           'player_2': [('id', '!=', self.player_1.id)],
-                           'barco_1': [('player', '=', self.player_1.id)]},
+            'domain': {'isla_1': [('player', '=', self.player_1.id)],
+                       'player_2': [('id', '!=', self.player_1.id)],
+                       'barco_1': [('player', '=', self.player_1.id)]},
         }
 
     @api.onchange('player_2')
@@ -393,14 +404,14 @@ class challenge(models.Model):
                 self.player_2 = False
                 return {
                     'warning': {
-                                   'title': "Players must be different",
-                                   'message': "Player 1 is the same as Player 2",
-                               }
+                        'title': "Players must be different",
+                        'message': "Player 1 is the same as Player 2",
+                    }
                 }
         return {
-                'domain': {'isla_2': [('player', '=', self.player_2.id)],
-                           'player_1': [('id', '!=', self.player_2.id)],
-                           'barco_2': [('player', '=', self.player_2.id)]},
+            'domain': {'isla_2': [('player', '=', self.player_2.id)],
+                       'player_1': [('id', '!=', self.player_2.id)],
+                       'barco_2': [('player', '=', self.player_2.id)]},
         }
 
     @api.onchange('target_goal')
@@ -413,7 +424,7 @@ class challenge(models.Model):
         self.calcularCombates()
 
     def calcularCombates(self):
-        combates = self.search([('finished','=',False)])
+        combates = self.search([('finished', '=', False)])
         for c in combates:
             barco1 = c.barco_1
             ataque1 = c.barco_1.ataque
@@ -433,7 +444,7 @@ class challenge(models.Model):
 
             while vida1 > 0 and vida2 > 0:
                 if turno == 1:
-                    if(random.randint(0, 100) > 20):
+                    if (random.randint(0, 100) > 20):
                         vida2 = vida2 - ((ataque1 + 10) - defensa2)
                         print(barco2.name, vida2)
                     else:
@@ -454,14 +465,14 @@ class challenge(models.Model):
                 if (barco2.player.level > 100):
                     barco2.player.level = 100
                 barcoUpgradeVida = c.barco_2.vida = vidaInicial2 + (random.randint(1, 5))
-                barcoUpgradeAtaque = c.barco_2.ataque = ataque2 + (random.randint(1,5))
-                barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1,5))
-                barcoUpgradeLevel = c.barco_2.level = level2 + (random.randint(1,5))
+                barcoUpgradeAtaque = c.barco_2.ataque = ataque2 + (random.randint(1, 5))
+                barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1, 5))
+                barcoUpgradeLevel = c.barco_2.level = level2 + (random.randint(1, 5))
             else:
                 winner = barco1.player.id
                 nameWinner = barco1.player.name
                 playerUpgradeLevel = barco1.player.level = barco1.player.level + 1
-                if(barco1.player.level > 100):
+                if (barco1.player.level > 100):
                     barco1.player.level = 100
 
                 barcoUpgradeVida = c.barco_1.vida = vidaInicial1 + (random.randint(1, 5))
@@ -475,7 +486,5 @@ class challenge(models.Model):
             print(barcoUpgradeVida, barcoUpgradeAtaque, barcoUpgradeDefensa, barcoUpgradeLevel)
             print("Combate finalizado")
 
-
-#si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas
-#de un archipielago si otro intenta entrar se crea una guerra con toda la flota, el que gane se queda con todas las islas
-
+# si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas
+# de un archipielago si otro intenta entrar se crea una guerra con toda la flota, el que gane se queda con todas las islas

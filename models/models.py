@@ -80,6 +80,35 @@ class barco(models.Model):
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
+    def consume_recursos(self):
+        barco.isla.madera = barco.isla.madera - random.randint(150, 200)
+        barco.isla.bronce = barco.isla.bronce - random.randint(100, 150)
+        barco.isla.hierro = barco.isla.hierro - random.randint(50, 100)
+        barco.isla.plata = barco.isla.plata - random.randint(25, 50)
+        barco.isla.oro = barco.isla.oro - random.randint(10, 25)
+        barco.isla.adamantium = barco.isla.adamantium - random.randint(1, 10)
+
+        self.write({'barco.isla.madera': barco.isla.madera, 'barco.isla.bronce': barco.isla.bronce, 'barco.isla.hierro': barco.isla.hierro,
+                    'barco.isla.plata': barco.isla.plata, 'barco.isla.oro': barco.isla.oro, 'barco.isla.adamantium': barco.isla.adamantium,})
+
+        print("------------- Recursos consumidos -------------")
+
+
+'''
+ barcoUpgradeVida = c.barco_1.vida = vidaInicial1 + (random.randint(1, 5))
+        barcoUpgradeAtaque = c.barco_1.ataque = ataque1 + (random.randint(1, 5))
+        barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))
+        barcoUpgradeLevel = c.barco_1.level = level1 + (random.randint(1, 5))
+
+        c.write({'finished': True, 'winner': winner})
+        print("Ganador: " + nameWinner)
+        print("Level " + nameWinner + " + " + str(playerUpgradeLevel))
+        print(barcoUpgradeVida, barcoUpgradeAtaque, barcoUpgradeDefensa, barcoUpgradeLevel)
+        print("Combate finalizado")
+'''
+
+
+
 
 class isla(models.Model):
     _name = "game.isla"
@@ -176,6 +205,11 @@ class isla(models.Model):
         records = self.browse(self.env.context.get('active_ids'))
         for p in records:
             p.write({'madera': 1000})
+            p.write({'bronce': 1000})
+            p.write({'hierro': 1000})
+            p.write({'plata': 1000})
+            p.write({'oro': 1000})
+            p.write({'adamantium': 1000})
 
     def open_player(self):
         for b in self:
@@ -217,7 +251,7 @@ class viaje(models.Model):
 
     origen_isla = fields.Many2one('game.isla')
     destino_isla = fields.Many2one('game.isla')
-    duracion_viaje = fields.Integer(default=0, compute='_get_duracion_viaje')
+    duracion_viaje = fields.Integer(compute='_get_duracion_viaje') #store true
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
 
     #_sql_constraints = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
@@ -230,7 +264,7 @@ class viaje(models.Model):
             else:
                 t.name = str(t.player.name) + " " + str(t.origen_isla.name) + " -> " + str(t.destino_isla.name)
 
-    @api.depends('origen_isla', 'destino_isla')
+    @api.model
     def _get_duracion_viaje(self):
         for t in self:
             t.duracion_viaje = ((((t.destino_isla.pos_x - t.origen_isla.pos_x) ** 2) + (
@@ -248,7 +282,6 @@ class viaje_wizard(models.TransientModel):
     player = fields.Many2one('res.partner', required=True, default=_default_player , domain="[('is_player', '=', True)]", readonly=True)
     origen_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
     destino_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
-    duracion_viaje = fields.Integer(default=0, compute='_get_duracion_viaje')
 
 
     #distance = fields.Float(compute='_get_distance')  # Distancia en temps

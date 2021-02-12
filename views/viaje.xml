@@ -78,6 +78,9 @@
                     <field name="name"/>
                     <field name="duracion_viaje" string="Duración viaje" filter_domain="[('duracion_viaje','>',self)]"/>
 
+                    <filter name="group_by_viaje" string="Agrupar por duracion viaje"
+                            context="{'group_by': 'duracion_viaje'}"></filter>
+
                     <filter name="de100A110" string="Duración viaje: De 100 a 110"
                             domain="[('duracion_viaje','>=','100'),('duracion_viaje','&lt;=','110')]"></filter>
                     <filter name="de111A120" string="Duración viaje: De 111 a 120"

@@ -70,4 +70,37 @@
                 target="new"
     />
 
+    <record model="ir.ui.view" id="game.viaje_search">
+            <field name="name">Viaje</field>
+            <field name="model">game.viaje</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="duracion_viaje" string="Duración viaje" filter_domain="[('duracion_viaje','>',self)]"/>
+
+                    <filter name="de100A110" string="Duración viaje: De 100 a 110"
+                            domain="[('duracion_viaje','>=','100'),('duracion_viaje','&lt;=','110')]"></filter>
+                    <filter name="de111A120" string="Duración viaje: De 111 a 120"
+                            domain="[('duracion_viaje','>=','111'),('duracion_viaje','&lt;=','120')]"></filter>
+                    <filter name="de121A130" string="Duración viaje: De 121 a 130"
+                            domain="[('duracion_viaje','>=','121'),('duracion_viaje','&lt;=','130')]"></filter>
+                    <filter name="de131A140" string="Duración viaje: De 131 a 140"
+                            domain="[('duracion_viaje','>=','131'),('duracion_viaje','&lt;=','140')]"></filter>
+                    <filter name="de141A150" string="Duración viaje: De 141 a 150"
+                            domain="[('duracion_viaje','>=','141'),('duracion_viaje','&lt;=','150')]"></filter>
+                    <filter name="de151A160" string="Duración viaje: De 151 a 160"
+                            domain="[('duracion_viaje','>=','151'),('duracion_viaje','&lt;=','160')]"></filter>
+                    <filter name="de161A170" string="Duración viaje: De 161 a 170"
+                            domain="[('duracion_viaje','>=','161'),('duracion_viaje','&lt;=','170')]"></filter>
+                    <filter name="de171A180" string="Duración viaje: De 171 a 180"
+                            domain="[('duracion_viaje','>=','171'),('duracion_viaje','&lt;=','180')]"></filter>
+                    <filter name="de181A190" string="Duración viaje: De 181 a 190"
+                            domain="[('duracion_viaje','>=','181'),('duracion_viaje','&lt;=','190')]"></filter>
+                    <filter name="de191A200" string="Duración viaje: De 191 a 200"
+                            domain="[('duracion_viaje','>=','191'),('duracion_viaje','&lt;=','200')]"></filter>
+
+                </search>
+            </field>
+        </record>
+
 </odoo>

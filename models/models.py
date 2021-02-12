@@ -248,6 +248,7 @@ class viaje_wizard(models.TransientModel):
     player = fields.Many2one('res.partner', required=True, default=_default_player , domain="[('is_player', '=', True)]", readonly=True)
     origen_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
     destino_isla = fields.Many2one('game.isla', ondelete='cascade', required=True)
+    duracion_viaje = fields.Integer(default=0, compute='_get_duracion_viaje')
 
 
     #distance = fields.Float(compute='_get_distance')  # Distancia en temps

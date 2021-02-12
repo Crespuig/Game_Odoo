@@ -83,35 +83,19 @@ class barco(models.Model):
         ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     def consume_recursos(self):
-        isla = self.isla
-        for c in isla:
-            consume_madera = c.isla.madera - random.randint(150, 200)
-            consume_bronce = c.isla.bronce - random.randint(100, 150)
-            consume_hierro = c.isla.hierro - random.randint(50, 100)
-            consume_plata = c.isla.plata - random.randint(25, 50)
-            consume_oro = c.isla.oro - random.randint(10, 25)
-            consume_adamantium = c.isla.adamantium - random.randint(1, 10)
-
-        # self.write({'barco.isla.madera': barco.isla.madera, 'barco.isla.bronce': barco.isla.bronce, 'barco.isla.hierro': barco.isla.hierro,
-        #           'barco.isla.plata': barco.isla.plata, 'barco.isla.oro': barco.isla.oro, 'barco.isla.adamantium': barco.isla.adamantium,})
-
-        print(consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro, consume_adamantium)
-
-        print("------------- Recursos consumidos -------------")
-
-
-'''
- barcoUpgradeVida = c.barco_1.vida = vidaInicial1 + (random.randint(1, 5))
-        barcoUpgradeAtaque = c.barco_1.ataque = ataque1 + (random.randint(1, 5))
-        barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))
-        barcoUpgradeLevel = c.barco_1.level = level1 + (random.randint(1, 5))
-
-        c.write({'finished': True, 'winner': winner})
-        print("Ganador: " + nameWinner)
-        print("Level " + nameWinner + " + " + str(playerUpgradeLevel))
-        print(barcoUpgradeVida, barcoUpgradeAtaque, barcoUpgradeDefensa, barcoUpgradeLevel)
-        print("Combate finalizado")
-'''
+        for c in self:
+            if c.isla.madera < 200 or c.isla.bronce < 100 or c.isla.hierro < 50 or c.isla.plata < 25 or c.isla.oro < 10 or c.isla.adamantium < 5:
+                print("No hay suficientes recursos para construir el barco en esta isla")
+            else:
+                consume_madera = c.isla.madera = c.isla.madera - 200
+                consume_bronce = c.isla.bronce = c.isla.bronce - 100
+                consume_hierro = c.isla.hierro = c.isla.hierro - 50
+                consume_plata = c.isla.plata = c.isla.plata - 25
+                consume_oro = c.isla.oro = c.isla.oro - 10
+                consume_adamantium = c.isla.adamantium = c.isla.adamantium - 5
+                print("------------- Recursos consumidos -------------")
+                print(c.isla, consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro,
+                      consume_adamantium)
 
 
 class isla(models.Model):

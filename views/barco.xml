@@ -38,10 +38,6 @@
                                 <field name="level"/>
                             </group>
                         </group>
-                        <footer>
-                            <button name="consume_recursos" type="object"
-                                string="Crear barco" class="oe_highlight"/>
-                        </footer>
                     </sheet>
                 </form>
             </field>

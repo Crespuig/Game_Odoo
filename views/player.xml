@@ -76,8 +76,10 @@
                         <notebook>
                             <page string="Islas">
                                 <field name="islas" context="{'default_player':active_id}"/>
+                                <!--
                                 <button name="%(game.agregar_isla)d" type="action" string="Agregar isla" icon="fa-bolt"
                                         context="{'default_player':active_id}"></button>
+                                 -->
                             </page>
                             <page string="Archipiélagos">
                                 <field name="archipielagos"/>

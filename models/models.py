@@ -4,6 +4,7 @@ import random
 import string
 from datetime import datetime, timedelta
 from typing import List, Tuple
+from odoo.exceptions import ValidationError
 
 from odoo import models, fields, api
 
@@ -82,20 +83,34 @@ class barco(models.Model):
     _sql_constraints: List[Tuple[str, str, str]] = [
         ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
+    @api.constrains('isla')
     def consume_recursos(self):
         for c in self:
             if c.isla.madera < 200 or c.isla.bronce < 100 or c.isla.hierro < 50 or c.isla.plata < 25 or c.isla.oro < 10 or c.isla.adamantium < 5:
-                print("No hay suficientes recursos para construir el barco en esta isla")
-            else:
-                consume_madera = c.isla.madera = c.isla.madera - 200
-                consume_bronce = c.isla.bronce = c.isla.bronce - 100
-                consume_hierro = c.isla.hierro = c.isla.hierro - 50
-                consume_plata = c.isla.plata = c.isla.plata - 25
-                consume_oro = c.isla.oro = c.isla.oro - 10
-                consume_adamantium = c.isla.adamantium = c.isla.adamantium - 5
-                print("------------- Recursos consumidos -------------")
-                print(c.isla, consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro,
-                      consume_adamantium)
+                raise ValidationError("No hay suficientes recursos para construir el barco en esta isla")
+
+    @api.model
+    def create(self, values):
+        new_id = super(barco, self).create(values)
+        name_barco = new_id.name
+        c = new_id.isla
+        consume_madera = c.madera = c.madera - 200
+        consume_bronce = c.bronce = c.bronce - 100
+        consume_hierro = c.hierro = c.hierro - 50
+        consume_plata = c.plata = c.plata - 25
+        consume_oro = c.oro = c.oro - 10
+        consume_adamantium = c.adamantium = c.adamantium - 5
+
+        c.write({
+            'madera': consume_madera,
+            'bronce': consume_bronce,
+            'hierro': consume_hierro,
+            'plata': consume_plata,
+            'oro': consume_oro,
+            'adamantium': consume_adamantium
+        })
+
+        return new_id
 
 
 class isla(models.Model):

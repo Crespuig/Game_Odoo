@@ -365,6 +365,8 @@ class challenge(models.Model):
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     barco_1 = fields.Many2one('game.barco', required=True, ondelete='restrict')
     barco_2 = fields.Many2one('game.barco', required=True, ondelete='restrict')
+    isla1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
+    isla2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     ### Challenge objective
     playerUpgradeLevel = fields.Many2one('res.partner')
     winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
@@ -431,6 +433,7 @@ class challenge(models.Model):
             vida1 = c.barco_1.vida
             vidaInicial1 = c.barco_1.vida
             level1 = c.barco_1.level
+            isla1 = c.barco_1.isla
 
             barco2 = c.barco_2
             ataque2 = c.barco_2.ataque
@@ -438,6 +441,7 @@ class challenge(models.Model):
             vida2 = c.barco_2.vida
             vidaInicial2 = c.barco_2.vida
             level2 = c.barco_2.level
+            isla2 = c.barco_2.isla
 
             turno = 1
 
@@ -467,6 +471,10 @@ class challenge(models.Model):
                 barcoUpgradeAtaque = c.barco_2.ataque = ataque2 + (random.randint(1, 5))
                 barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1, 5))
                 barcoUpgradeLevel = c.barco_2.level = level2 + (random.randint(1, 5))
+
+                c.write({
+                    'isla1': isla2
+                })
             else:
                 winner = barco1.player.id
                 nameWinner = barco1.player.name
@@ -478,6 +486,10 @@ class challenge(models.Model):
                 barcoUpgradeAtaque = c.barco_1.ataque = ataque1 + (random.randint(1, 5))
                 barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))
                 barcoUpgradeLevel = c.barco_1.level = level1 + (random.randint(1, 5))
+
+                c.write({
+                    'isla2': isla1
+                })
 
             c.write({'finished': True, 'winner': winner})
             print("Ganador: " + nameWinner)

@@ -115,21 +115,9 @@
             <field name="model">game.archipielago</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name"/>
-                    <field name="islas" string="Isla" filter_domain="[('isla','>',self)]"/>
+                    <field name="players" string="Player" filter_domain="[('player','>',self)]"/>
+                    <filter name="hayJugador" string="Contiene jugadores" domain="[('players','!=',False)]"></filter>
 
-                    <!--
-                    <filter name="group_by_isla" string="Agrupar por islas"
-                            context="{'group_by': 'isla'}"></filter>
-                    <filter name="de0A5" string="Islas 0 a 5"
-                            domain="[('isla','>=','0'),('isla','&lt;=','5')]"></filter>
-                    <filter name="de6A10" string="Islas 6 a 10"
-                            domain="[('isla','>=','6'),('isla','&lt;=','6')]"></filter>
-                    <filter name="de11A15" string="Isla 11 a 15"
-                            domain="[('isla','>=','51'),('isla','&lt;=','15')]"></filter>
-                    <filter name="de16A20" string="Isla 16 a 20"
-                            domain="[('isla','>=','16'),('isla','&lt;=','20')]"></filter>
-                    -->
                 </search>
             </field>
         </record>

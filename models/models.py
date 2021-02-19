@@ -238,8 +238,7 @@ class archipielago(models.Model):
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
     photo_medium = fields.Image(max_width=100, max_heigth=100, related='photo', store=True)
 
-    _sql_constraints: List[Tuple[str, str, str]] = [
-        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    _sql_constraints: List[Tuple[str, str, str]] = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
 
 class viaje(models.Model):
@@ -258,8 +257,7 @@ class viaje(models.Model):
     duracion_viaje = fields.Integer(compute='_get_duracion_viaje')  # store true
     launch_time = fields.Datetime(default=lambda t: fields.Datetime.now())
 
-    _sql_constraints: List[Tuple[str, str, str]] = [
-        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints: List[Tuple[str, str, str]] = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     @api.depends('origen_isla', 'destino_isla', 'player')
     def _get_viaje_name(self):
@@ -365,8 +363,8 @@ class challenge(models.Model):
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     barco_1 = fields.Many2one('game.barco', required=True, ondelete='restrict')
     barco_2 = fields.Many2one('game.barco', required=True, ondelete='restrict')
-    isla1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
-    isla2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
+    isla1 = fields.Many2one('game.isla', ondelete='restrict')
+    isla2 = fields.Many2one('game.isla', ondelete='restrict')
     ### Challenge objective
     playerUpgradeLevel = fields.Many2one('res.partner')
     winner = fields.Many2one('res.partner', ondelete='restrict', readonly=True)
@@ -378,8 +376,7 @@ class challenge(models.Model):
     barco_1_image = fields.Image(related='barco_1.photo')
     barco_2_image = fields.Image(related='barco_2.photo')
 
-    _sql_constraints: List[Tuple[str, str, str]] = [
-        ('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
+    #_sql_constraints: List[Tuple[str, str, str]] = [('name_uniq', 'unique(name)', 'El nombre ya existe, prueba con otro'), ]
 
     @api.onchange('player_1')
     def _onchange_player1(self):
@@ -472,8 +469,8 @@ class challenge(models.Model):
                 barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1, 5))
                 barcoUpgradeLevel = c.barco_2.level = level2 + (random.randint(1, 5))
 
-                c.write({
-                    'isla1': isla2
+                isla1.write({
+                    'player': barco2.player.id
                 })
             else:
                 winner = barco1.player.id
@@ -487,8 +484,8 @@ class challenge(models.Model):
                 barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))
                 barcoUpgradeLevel = c.barco_1.level = level1 + (random.randint(1, 5))
 
-                c.write({
-                    'isla2': isla1
+                isla2.write({
+                    'player': barco1.player.id
                 })
 
             c.write({'finished': True, 'winner': winner})

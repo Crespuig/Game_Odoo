@@ -555,7 +555,9 @@ KQcBZL3aGz8CmiaHmKm1K3m5Ytu5jSzHruiL2+sJiUk0aIDUtVBFuNQHlf8AazJIMpyMGPr+Y/r6
 /wD1M0mxAJJZ/dmr0T+8Fe3Dh4mNU1ep+jNcosUVZA4GpqEYBV9RPwYS+OYVVFaPqCpB6xKa2aIg
 CAGODdnCJKXmJuflvDAaYf8As+5rjuASTDn+UbbbQDiAHXM2h1Nj5QKg226mZuf8s2ea2emNHFFu
 rnBDiAcONQkC2xzxG5S9NeytwEQl2VbbuXCx2l5xCwDsrzFEi+Uuf//Z</field>
-            <field name="is_player">true</field>
+            <field name="is_player">1</field>
+            <field name="is_premium">0</field>
+            <field name="puntos_batalla">0</field>
         </record>
 
         <!-- ARCHIPIELAGOS -->

@@ -32,7 +32,7 @@ class player(models.Model):
     _description = 'Jugador'
 
     # name = fields.Char(default=name_generator)
-    is_player = fields.Boolean(default=True)
+    is_player = fields.Boolean()
     is_premium = fields.Boolean(default=False)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
@@ -138,6 +138,8 @@ class barco(models.Model):
         return {
             'domain': {'isla': [('player', '=', self.player.id)]},
         }
+
+
 
 
 class isla(models.Model):
@@ -500,9 +502,7 @@ class challenge(models.Model):
 
                 pbUpgradePuntosBatalla = barco2.player.puntos_batalla = barco2.player.puntos_batalla +250
 
-                isla1.write({
-                    'player': barco2.player.id
-                })
+
             else:
                 winner = barco1.player.id
                 nameWinner = barco1.player.name
@@ -517,9 +517,6 @@ class challenge(models.Model):
 
                 pbUpgradePuntosBatalla = barco1.player.puntos_batalla = barco1.player.puntos_batalla + 250
 
-                isla2.write({
-                    'player': barco1.player.id
-                })
 
             c.write({'finished': True, 'winner': winner})
             print("Ganador: " + nameWinner)

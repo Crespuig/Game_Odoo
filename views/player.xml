@@ -13,6 +13,7 @@
                     <field name="barcos"/>
                     <field name="islas"/>
                     <field name="archipielagos"/>
+                    <field name="is_premium"/>
                 </tree>
             </field>
         </record>

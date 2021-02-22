@@ -82,7 +82,7 @@ class barco(models.Model):
     level = fields.Integer(default=1, readonly=True)
     # esquivar = fields.Integer(default=random.randint(0, 20))
 
-    player = fields.Many2one('res.partner')
+    player = fields.Many2one('res.partner', required=True)
     isla = fields.Many2one('game.isla')
 
     photo_small = fields.Image(max_width=50, max_heigth=50, related='photo', store=True)
@@ -120,6 +120,8 @@ class barco(models.Model):
                     'oro': consume_oro,
                     'adamantium': consume_adamantium
                 })
+                print("--------------- PREMIUM ---------------")
+                print(consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro, consume_adamantium)
 
                 return new_id
 
@@ -141,8 +143,16 @@ class barco(models.Model):
             'oro': consume_oro,
             'adamantium': consume_adamantium
         })
+        print("--------------- NOT PREMIUM ---------------")
+        print(consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro, consume_adamantium)
 
         return new_id
+
+    @api.onchange('player')
+    def _onchange_player1(self):
+        return {
+            'domain': {'isla': [('player', '=', self.player.id)]},
+        }
 
 
 class isla(models.Model):

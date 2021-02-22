@@ -36,7 +36,7 @@ class player(models.Model):
     is_premium = fields.Boolean(default=False)
     photo = fields.Image(max_width=150, max_heigth=150)
     level = fields.Integer()
-    points = fields.Integer()
+    puntos_batalla = fields.Integer()
 
     barcos = fields.One2many('game.barco', 'player')
     islas = fields.One2many('game.isla', 'player')
@@ -86,20 +86,44 @@ class barco(models.Model):
     @api.constrains('isla')
     def consume_recursos(self):
         for c in self:
-            if c.isla.madera < 200 or c.isla.bronce < 100 or c.isla.hierro < 50 or c.isla.plata < 25 or c.isla.oro < 10 or c.isla.adamantium < 5:
+            if c.isla.madera < 400 or c.isla.bronce < 300 or c.isla.hierro < 200 or c.isla.plata < 100 or c.isla.oro < 50 or c.isla.adamantium < 25:
                 raise ValidationError("No hay suficientes recursos para construir el barco en esta isla")
 
     @api.model
     def create(self, values):
+        if(player.is_premium):
+            @api.model
+            def create(self, values):
+                new_id = super(barco, self).create(values)
+                name_barco = new_id.name
+                c = new_id.isla
+                consume_madera = c.madera = c.madera - 200
+                consume_bronce = c.bronce = c.bronce - 100
+                consume_hierro = c.hierro = c.hierro - 50
+                consume_plata = c.plata = c.plata - 25
+                consume_oro = c.oro = c.oro - 10
+                consume_adamantium = c.adamantium = c.adamantium - 5
+
+                c.write({
+                    'madera': consume_madera,
+                    'bronce': consume_bronce,
+                    'hierro': consume_hierro,
+                    'plata': consume_plata,
+                    'oro': consume_oro,
+                    'adamantium': consume_adamantium
+                })
+
+                return new_id
+
         new_id = super(barco, self).create(values)
         name_barco = new_id.name
         c = new_id.isla
-        consume_madera = c.madera = c.madera - 200
-        consume_bronce = c.bronce = c.bronce - 100
-        consume_hierro = c.hierro = c.hierro - 50
-        consume_plata = c.plata = c.plata - 25
-        consume_oro = c.oro = c.oro - 10
-        consume_adamantium = c.adamantium = c.adamantium - 5
+        consume_madera = c.madera = c.madera - 400
+        consume_bronce = c.bronce = c.bronce - 300
+        consume_hierro = c.hierro = c.hierro - 200
+        consume_plata = c.plata = c.plata - 100
+        consume_oro = c.oro = c.oro - 50
+        consume_adamantium = c.adamantium = c.adamantium - 25
 
         c.write({
             'madera': consume_madera,
@@ -358,7 +382,9 @@ class challenge(models.Model):
 
     finished = fields.Boolean(default=False)
     player_1 = fields.Many2one('res.partner', required=True, ondelete='restrict')
+    pb_player1 = fields.Many2one('res.partner')
     player_2 = fields.Many2one('res.partner', required=True, ondelete='restrict')
+    pb_player2 = fields.Many2one('res.partner')
     isla_1 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     isla_2 = fields.Many2one('game.isla', required=True, ondelete='restrict')
     barco_1 = fields.Many2one('game.barco', required=True, ondelete='restrict')
@@ -469,6 +495,8 @@ class challenge(models.Model):
                 barcoUpgradeDefensa = c.barco_2.defensa = defensa2 + (random.randint(1, 5))
                 barcoUpgradeLevel = c.barco_2.level = level2 + (random.randint(1, 5))
 
+                pbUpgradePuntosBatalla = barco2.player.puntos_batalla = barco2.player.puntos_batalla +250
+
                 isla1.write({
                     'player': barco2.player.id
                 })
@@ -484,6 +512,8 @@ class challenge(models.Model):
                 barcoUpgradeDefensa = c.barco_1.defensa = defensa1 + (random.randint(1, 5))
                 barcoUpgradeLevel = c.barco_1.level = level1 + (random.randint(1, 5))
 
+                pbUpgradePuntosBatalla = barco1.player.puntos_batalla = barco1.player.puntos_batalla + 250
+
                 isla2.write({
                     'player': barco1.player.id
                 })
@@ -491,7 +521,7 @@ class challenge(models.Model):
             c.write({'finished': True, 'winner': winner})
             print("Ganador: " + nameWinner)
             print("Level " + nameWinner + " + " + str(playerUpgradeLevel))
-            print(barcoUpgradeVida, barcoUpgradeAtaque, barcoUpgradeDefensa, barcoUpgradeLevel)
+            print(barcoUpgradeVida, barcoUpgradeAtaque, barcoUpgradeDefensa, barcoUpgradeLevel, pbUpgradePuntosBatalla)
             print("Combate finalizado")
 
 # si un jugador no tiene un todas las islas de un archipilago otro jugador puede entrar para conquistar islas, pero si un jugador tiene todas las islas

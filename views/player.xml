@@ -9,6 +9,7 @@
                     <field name="photo_small" widget="image"/>
                     <field name="name"/>
                     <field name="level"/>
+                    <field name="puntos_batalla"/>
                     <field name="barcos"/>
                     <field name="islas"/>
                     <field name="archipielagos"/>
@@ -63,9 +64,6 @@
                     </header>
                     <header>
                         <field name="level" widget="statusbar"/>
-                    </header>
-                    <header>
-                        <field name="points" widget="statusbar"/>
                     </header>
                     <sheet>
                         <field name="photo" widget="image"/>
@@ -130,9 +128,6 @@
                             </header>
                             <header>
                                 <field name="level" widget="statusbar"/>
-                            </header>
-                            <header>
-                                <field name="points" widget="statusbar"/>
                             </header>
                             <field name="photo" widget="image"/>
                             <group>

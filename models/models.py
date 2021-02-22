@@ -99,32 +99,6 @@ class barco(models.Model):
 
     @api.model
     def create(self, values):
-        if(player.is_premium):
-            @api.model
-            def create(self, values):
-                new_id = super(barco, self).create(values)
-                name_barco = new_id.name
-                c = new_id.isla
-                consume_madera = c.madera = c.madera - 200
-                consume_bronce = c.bronce = c.bronce - 100
-                consume_hierro = c.hierro = c.hierro - 50
-                consume_plata = c.plata = c.plata - 25
-                consume_oro = c.oro = c.oro - 10
-                consume_adamantium = c.adamantium = c.adamantium - 5
-
-                c.write({
-                    'madera': consume_madera,
-                    'bronce': consume_bronce,
-                    'hierro': consume_hierro,
-                    'plata': consume_plata,
-                    'oro': consume_oro,
-                    'adamantium': consume_adamantium
-                })
-                print("--------------- PREMIUM ---------------")
-                print(consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro, consume_adamantium)
-
-                return new_id
-
         new_id = super(barco, self).create(values)
         name_barco = new_id.name
         c = new_id.isla
@@ -145,6 +119,17 @@ class barco(models.Model):
         })
         print("--------------- NOT PREMIUM ---------------")
         print(consume_madera, consume_bronce, consume_hierro, consume_plata, consume_oro, consume_adamantium)
+
+        if new_id.isla.player.is_premium:
+            c.madera = c.madera + 200
+            c.bronce = c.bronce + 150
+            c.hierro = c.hierro + 100
+            c.plata = c.plata + 75
+            c.oro = c.oro + 50
+            c.adamantium = c.adamantium + 25
+
+            print("--------------- PREMIUM ---------------")
+            print(c.madera, c.bronce, c.hierro, c.plata, c.oro, c.adamantium)
 
         return new_id
 

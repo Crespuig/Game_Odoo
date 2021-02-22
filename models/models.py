@@ -61,6 +61,14 @@ class player(models.Model):
                 'isla': isla.id
             })'''
 
+    def premium(self):
+        for p in self:
+            if(p.puntos_batalla < 1000):
+                raise ValidationError("No tienes suficientes puntos batalla, combate para conseguirlos")
+
+            p.puntos_batalla = player.puntos_batalla - 1000
+            p.is_premium = True
+
 
 class barco(models.Model):
     _name = 'game.barco'
